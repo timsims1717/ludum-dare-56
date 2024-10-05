@@ -29,8 +29,8 @@ var (
 	Border     = Manager.NewComponent()
 	Block      = Manager.NewComponent()
 	Character  = Manager.NewComponent()
-	Controller = Manager.NewComponent()
-	Player     = Manager.NewComponent()
+	MoveTarget = Manager.NewComponent()
+	Input      = Manager.NewComponent()
 	Text       = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
@@ -43,12 +43,12 @@ var (
 	HasParent        = ecs.BuildTag(Object, Parent)
 	HasInterpolation = ecs.BuildTag(Object, Interpolation)
 
-	IsTile      = ecs.BuildTag(Object, Tile)
-	HasBorder   = ecs.BuildTag(Object, Border)
-	IsBlock     = ecs.BuildTag(Object, Block)
-	IsCharacter = ecs.BuildTag(Object, Character)
-	IsPlayer    = ecs.BuildTag(Object, Character, Player, Controller)
-	IsText      = ecs.BuildTag(Object, Drawable, Text)
+	IsTile    = ecs.BuildTag(Object, Tile)
+	HasBorder = ecs.BuildTag(Object, Border)
+	IsBlock   = ecs.BuildTag(Object, Block)
+	IsNPC     = ecs.BuildTag(Object, Character, MoveTarget)
+	IsPlayer  = ecs.BuildTag(Object, Character, Input)
+	IsText    = ecs.BuildTag(Object, Drawable, Text)
 )
 
 func UpdateManager() {
