@@ -42,6 +42,7 @@ func run() {
 	state.Register(data.GameStateKey, state.New(states.GameState))
 
 	loading.LoadSprites()
+	loading.LoadEnities()
 
 	//mainFont, err := typeface.LoadTTF("Jive_Talking.ttf", 128.)
 	//typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)

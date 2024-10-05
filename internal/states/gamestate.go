@@ -30,6 +30,7 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.MainViewInit()
 	systems.UpdateViews()
 	systems.CreateCharacter()
+	systems.CreateEntity()
 	systems.CreateNPC()
 }
 
