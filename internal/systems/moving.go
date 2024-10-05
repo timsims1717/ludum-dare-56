@@ -30,23 +30,29 @@ func PlayerCharacterSystem() {
 			} else if !in.Get(data.InputUp).Pressed() && !in.Get(data.InputDown).Pressed() {
 				ch.Vert = data.NoDirection
 			}
+			mov := pixel.ZV
 			if ch.Horiz == data.Left && in.Get(data.InputLeft).Pressed() {
-				obj.Pos.X -= data.PlayerSpeed * timing.DT
+				mov.X = -1
 			} else if ch.Horiz == data.Right && in.Get(data.InputRight).Pressed() {
-				obj.Pos.X += data.PlayerSpeed * timing.DT
+				mov.X = 1
 			} else if in.Get(data.InputLeft).Pressed() {
-				obj.Pos.X -= data.PlayerSpeed * timing.DT
+				mov.X = -1
 			} else if in.Get(data.InputRight).Pressed() {
-				obj.Pos.X += data.PlayerSpeed * timing.DT
+				mov.X = 1
 			}
-			if ch.Horiz == data.Down && in.Get(data.InputDown).Pressed() {
-				obj.Pos.Y -= data.PlayerSpeed * timing.DT
-			} else if ch.Horiz == data.Up && in.Get(data.InputUp).Pressed() {
-				obj.Pos.Y += data.PlayerSpeed * timing.DT
+			if ch.Vert == data.Down && in.Get(data.InputDown).Pressed() {
+				mov.Y = -1
+			} else if ch.Vert == data.Up && in.Get(data.InputUp).Pressed() {
+				mov.Y = 1
 			} else if in.Get(data.InputDown).Pressed() {
-				obj.Pos.Y -= data.PlayerSpeed * timing.DT
+				mov.Y = -1
 			} else if in.Get(data.InputUp).Pressed() {
-				obj.Pos.Y += data.PlayerSpeed * timing.DT
+				mov.Y = 1
+			}
+			if ch.Horiz != data.NoDirection || ch.Vert != data.NoDirection {
+				mov = util.Normalize(mov)
+				obj.Pos.X += mov.X * data.PlayerSpeed * timing.DT
+				obj.Pos.Y += mov.Y * data.PlayerSpeed * timing.DT
 			}
 			if ch.Horiz == data.Left {
 				obj.Flip = true
@@ -103,35 +109,65 @@ func NonPlayerCharacterSystem() {
 						ch.Target = util.Normalize(ch.Target)
 					}
 				case data.Target:
+					mov := pixel.ZV
+					horiz := data.NoDirection
+					vert := data.NoDirection
 					if ch.Target.X < obj.Pos.X {
-						obj.Pos.X -= data.NPCSpeed * timing.DT
+						mov.X = -1
 						obj.Flip = true
-						if ch.Target.X > obj.Pos.X {
-							obj.Pos.X = ch.Target.X
-						}
+						horiz = data.Left
 					} else if ch.Target.X > obj.Pos.X {
-						obj.Pos.X += data.NPCSpeed * timing.DT
+						mov.X = 1
 						obj.Flip = false
-						if ch.Target.X < obj.Pos.X {
-							obj.Pos.X = ch.Target.X
-						}
+						horiz = data.Right
 					}
 					if ch.Target.Y < obj.Pos.Y {
-						obj.Pos.Y -= data.NPCSpeed * timing.DT
-						if ch.Target.Y > obj.Pos.Y {
-							obj.Pos.Y = ch.Target.Y
-						}
+						mov.Y = -1
+						vert = data.Down
 					} else if ch.Target.Y > obj.Pos.Y {
-						obj.Pos.Y += data.NPCSpeed * timing.DT
-						if ch.Target.Y < obj.Pos.Y {
+						mov.Y = 1
+						vert = data.Up
+					}
+					if horiz != data.NoDirection || vert != data.NoDirection {
+						mov = util.Normalize(mov)
+						obj.Pos.X += mov.X * data.NPCSpeed * timing.DT
+						obj.Pos.Y += mov.Y * data.NPCSpeed * timing.DT
+
+						if horiz == data.Left && ch.Target.X > obj.Pos.X {
+							obj.Pos.X = ch.Target.X
+						} else if horiz == data.Right && ch.Target.X < obj.Pos.X {
+							obj.Pos.X = ch.Target.X
+						}
+						if vert == data.Down && ch.Target.Y > obj.Pos.Y {
+							obj.Pos.Y = ch.Target.Y
+						} else if vert == data.Up && ch.Target.Y < obj.Pos.Y {
 							obj.Pos.Y = ch.Target.Y
 						}
-					}
-					if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
-						ch.Movement = data.Stationary
-						ch.Target = pixel.ZV
+						if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
+							ch.Movement = data.Stationary
+							ch.Target = pixel.ZV
+						}
 					}
 				}
+			}
+		}
+	}
+}
+
+func RoomBorderSystem() {
+	for _, result := range myecs.Manager.Query(myecs.IsCharacter) {
+		obj, okO := result.Components[myecs.Object].(*object.Object)
+		_, okC := result.Components[myecs.Character].(*data.Character)
+		if okO && okC {
+			if obj.Pos.X+obj.HalfWidth > data.RoomBorder.Max.X {
+				obj.Pos.X = data.RoomBorder.Max.X - obj.HalfWidth
+			} else if obj.Pos.X-obj.HalfWidth < data.RoomBorder.Min.X {
+				obj.Pos.X = data.RoomBorder.Min.X + obj.HalfWidth
+			}
+			if obj.Pos.Y+obj.HalfHeight > data.RoomBorder.Max.Y {
+				obj.Pos.Y = data.RoomBorder.Max.Y - obj.HalfHeight
+			} else if obj.Pos.Y-obj.HalfHeight < data.RoomBorder.Min.Y {
+				obj.Pos.Y = data.RoomBorder.Min.Y + obj.HalfHeight
 			}
 		}
 	}
