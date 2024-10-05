@@ -11,7 +11,7 @@ func CreateEntity() {
 	entityRoll := PickRandomEntity()
 	obj := object.New().WithID(entityRoll.Name)
 	obj.Layer = 1
-	spr := img.NewSprite(data.LoadedEnities.StaticEntities[entityRoll.Name].Sprite, data.TestBatchKey)
+	spr := img.NewSprite(entityRoll.Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
@@ -22,7 +22,7 @@ func CreateEntity() {
 		AddComponent(myecs.Character, character)
 }
 
-func PickRandomEntity() data.EntityRoll {
-	roll := data.LoadedEnities.StaticEntityPool[data.GlobalSeededRandom.Intn(len(data.LoadedEnities.StaticEntityPool))]
+func PickRandomEntity() data.StaticEntity {
+	roll := data.LoadedEnities.StaticEntities[data.LoadedEnities.StaticEnityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEnities.StaticEntityPoolTotal)]]
 	return roll
 }

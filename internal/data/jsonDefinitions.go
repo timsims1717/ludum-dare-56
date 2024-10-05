@@ -7,12 +7,14 @@ import (
 )
 
 type EntityDefintions struct {
-	StaticEntities   map[string]StaticEntity `json:"StaticEntities"`
-	StaticEntityPool []EntityRoll            `json:"StaticEntityPool"`
+	StaticEntities          map[string]StaticEntity `json:"StaticEntities"`
+	StaticEntityPool        []EntityRoll            `json:"StaticEntityPool"`
+	StaticEnityPoolExpanded []string
+	StaticEntityPoolTotal   int
 }
 
 type StaticEntity struct {
-	name   string `json:"key"`
+	Name   string `json:"key"`
 	Sprite string `json:"sprite"`
 }
 
