@@ -79,7 +79,7 @@ func NonPlayerCharacterSystem() {
 					}
 					if ch.Timer.UpdateDone() {
 						if data.GlobalRand.Intn(2) == 0 {
-							ch.Timer = nil
+							ch.Timer = timing.New(data.GlobalRand.Float64()*7. + 1.)
 							newPos := pixel.V(GetRandomX(), GetRandomY())
 							count := 0
 							for count < 8 {
@@ -91,7 +91,7 @@ func NonPlayerCharacterSystem() {
 								count++
 							}
 						} else {
-							ch.Timer = timing.New(data.GlobalRand.Float64()*5 + 1.)
+							ch.Timer = timing.New(data.GlobalRand.Float64()*5. + 1.)
 							newDir := util.Normalize(pixel.V(GetRandomX(), GetRandomY()))
 							ch.Target = newDir
 							ch.Movement = data.Random
@@ -109,43 +109,48 @@ func NonPlayerCharacterSystem() {
 						ch.Target = util.Normalize(ch.Target)
 					}
 				case data.Target:
-					mov := pixel.ZV
-					horiz := data.NoDirection
-					vert := data.NoDirection
-					if ch.Target.X < obj.Pos.X {
-						mov.X = -1
-						obj.Flip = true
-						horiz = data.Left
-					} else if ch.Target.X > obj.Pos.X {
-						mov.X = 1
-						obj.Flip = false
-						horiz = data.Right
-					}
-					if ch.Target.Y < obj.Pos.Y {
-						mov.Y = -1
-						vert = data.Down
-					} else if ch.Target.Y > obj.Pos.Y {
-						mov.Y = 1
-						vert = data.Up
-					}
-					if horiz != data.NoDirection || vert != data.NoDirection {
-						mov = util.Normalize(mov)
-						obj.Pos.X += mov.X * data.NPCSpeed * timing.DT
-						obj.Pos.Y += mov.Y * data.NPCSpeed * timing.DT
+					if ch.Timer.UpdateDone() {
+						ch.Movement = data.Stationary
+						ch.Target = pixel.ZV
+					} else {
+						mov := pixel.ZV
+						horiz := data.NoDirection
+						vert := data.NoDirection
+						if ch.Target.X < obj.Pos.X {
+							mov.X = -1
+							obj.Flip = true
+							horiz = data.Left
+						} else if ch.Target.X > obj.Pos.X {
+							mov.X = 1
+							obj.Flip = false
+							horiz = data.Right
+						}
+						if ch.Target.Y < obj.Pos.Y {
+							mov.Y = -1
+							vert = data.Down
+						} else if ch.Target.Y > obj.Pos.Y {
+							mov.Y = 1
+							vert = data.Up
+						}
+						if horiz != data.NoDirection || vert != data.NoDirection {
+							mov = util.Normalize(mov)
+							obj.Pos.X += mov.X * data.NPCSpeed * timing.DT
+							obj.Pos.Y += mov.Y * data.NPCSpeed * timing.DT
 
-						if horiz == data.Left && ch.Target.X > obj.Pos.X {
-							obj.Pos.X = ch.Target.X
-						} else if horiz == data.Right && ch.Target.X < obj.Pos.X {
-							obj.Pos.X = ch.Target.X
-						}
-						if vert == data.Down && ch.Target.Y > obj.Pos.Y {
-							obj.Pos.Y = ch.Target.Y
-						} else if vert == data.Up && ch.Target.Y < obj.Pos.Y {
-							obj.Pos.Y = ch.Target.Y
-						}
-						if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
-							ch.Movement = data.Stationary
-							ch.Target = pixel.ZV
+							if horiz == data.Left && ch.Target.X > obj.Pos.X {
+								obj.Pos.X = ch.Target.X
+							} else if horiz == data.Right && ch.Target.X < obj.Pos.X {
+								obj.Pos.X = ch.Target.X
+							}
+							if vert == data.Down && ch.Target.Y > obj.Pos.Y {
+								obj.Pos.Y = ch.Target.Y
+							} else if vert == data.Up && ch.Target.Y < obj.Pos.Y {
+								obj.Pos.Y = ch.Target.Y
+							}
+							if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
+								ch.Movement = data.Stationary
+								ch.Target = pixel.ZV
+							}
 						}
 					}
 				}
@@ -158,7 +163,7 @@ func RoomBorderSystem() {
 	for _, result := range myecs.Manager.Query(myecs.IsCharacter) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		_, okC := result.Components[myecs.Character].(*data.Character)
-		if okO && okC {
+		if okO && okC && !result.Entity.HasComponent(myecs.Parent) {
 			if obj.Pos.X+obj.HalfWidth > data.RoomBorder.Max.X {
 				obj.Pos.X = data.RoomBorder.Max.X - obj.HalfWidth
 			} else if obj.Pos.X-obj.HalfWidth < data.RoomBorder.Min.X {
@@ -168,6 +173,32 @@ func RoomBorderSystem() {
 				obj.Pos.Y = data.RoomBorder.Max.Y - obj.HalfHeight
 			} else if obj.Pos.Y-obj.HalfHeight < data.RoomBorder.Min.Y {
 				obj.Pos.Y = data.RoomBorder.Min.Y + obj.HalfHeight
+			}
+		}
+	}
+}
+
+func NPCCollisions() {
+	for i, result := range myecs.Manager.Query(myecs.IsNPC) {
+		obj, okO := result.Components[myecs.Object].(*object.Object)
+		_, okC := result.Components[myecs.Character].(*data.Character)
+		if okO && okC && !result.Entity.HasComponent(myecs.Parent) {
+			for j, result2 := range myecs.Manager.Query(myecs.IsNPC) {
+				if j > i {
+					obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
+					_, okC2 := result2.Components[myecs.Character].(*data.Character)
+					if okO2 && okC2 && !result2.Entity.HasComponent(myecs.Parent) {
+						d := obj.HalfWidth + obj2.HalfWidth
+						v := obj.Pos.Sub(obj2.Pos)
+						m := util.Magnitude(v)
+						if m < d {
+							p := (d - m) * 0.5
+							n := util.Normalize(v).Scaled(p)
+							obj.Pos = obj.Pos.Add(n)
+							obj2.Pos = obj2.Pos.Add(pixel.V(-n.X, -n.Y))
+						}
+					}
+				}
 			}
 		}
 	}

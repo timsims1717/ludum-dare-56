@@ -31,7 +31,9 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.UpdateViews()
 	systems.CreateCharacter()
 	systems.CreateEntity()
-	systems.CreateNPC()
+	for i := 0; i < 12; i++ {
+		systems.CreateNPC()
+	}
 }
 
 func (s *gameState) Update(win *pixelgl.Window) {
@@ -41,6 +43,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.PlayerCharacterSystem()
 	systems.NonPlayerCharacterSystem()
 	systems.PickUpSystem()
+	systems.NPCCollisions()
 	systems.RoomBorderSystem()
 
 	systems.AnimationSystem()

@@ -8,9 +8,9 @@ import (
 )
 
 func CreateEntity() {
-	obj := object.New().WithID("cactus")
-	obj.Layer = 1
 	entityRoll := PickRandomEntity()
+	obj := object.New().WithID(entityRoll.Name)
+	obj.Layer = 1
 	spr := img.NewSprite(data.LoadedEnities.StaticEntities[entityRoll.Name].Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
