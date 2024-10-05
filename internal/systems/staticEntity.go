@@ -10,7 +10,8 @@ import (
 func CreateEntity() {
 	obj := object.New().WithID("cactus")
 	obj.Layer = 1
-	spr := img.NewSprite(data.AggressiveVineSpriteKey, data.TestBatchKey)
+	entityRoll := PickRandomEntity()
+	spr := img.NewSprite(data.LoadedEnities.StaticEntities[entityRoll.Name].Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
@@ -21,6 +22,7 @@ func CreateEntity() {
 		AddComponent(myecs.Character, character)
 }
 
-func PickRandomEntity() {
-
+func PickRandomEntity() data.EntityRoll {
+	roll := data.LoadedEnities.StaticEntityPool[data.GlobalSeededRandom.Intn(len(data.LoadedEnities.StaticEntityPool))]
+	return roll
 }

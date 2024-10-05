@@ -7,18 +7,18 @@ import (
 )
 
 type EntityDefintions struct {
-	StaticEntities   []StaticEntity `json:"StaticEntities"`
-	StaticEntityPool []EntityRolls  `json:"StaticEntityPool"`
+	StaticEntities   map[string]StaticEntity `json:"StaticEntities"`
+	StaticEntityPool []EntityRoll            `json:"StaticEntityPool"`
 }
 
 type StaticEntity struct {
-	Name   string `json:"name"`
+	name   string `json:"key"`
 	Sprite string `json:"sprite"`
 }
 
-type EntityRolls struct {
+type EntityRoll struct {
 	Name   string `json:"name"`
-	Weight string `json:"weight"`
+	Weight int    `json:"weight"`
 }
 
 func LoadEntityDefinitions(path string) (*EntityDefintions, error) {

@@ -35,7 +35,7 @@ const ( // player input
 
 var (
 	TitleText          = "LD56"
-	Enities            = new(EntityDefintions)
+	LoadedEnities      = new(EntityDefintions)
 	GlobalSeededRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 )
 

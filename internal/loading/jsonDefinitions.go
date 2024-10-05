@@ -9,5 +9,5 @@ func LoadEnities() {
 	if err != nil {
 		panic(err)
 	}
-	data.Enities = entities
+	data.LoadedEnities = entities
 }
