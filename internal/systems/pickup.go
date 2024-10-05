@@ -23,7 +23,7 @@ func PickUpSystem() {
 						if okPO && okPC {
 							if obj.Rect.Moved(obj.Pos).Contains(objPU.Pos) {
 								pickUp.Entity.AddComponent(myecs.Parent, obj)
-								objPU.Offset.Y = 32.
+								objPU.Offset.Y = 48.
 								chPU.PickedUp = true
 								p.Held = chPU
 								break
@@ -35,7 +35,6 @@ func PickUpSystem() {
 				if !in.Get(data.InputAction).Pressed() {
 					p.Held.PickedUp = false
 					p.Held.Object.Offset = pixel.ZV
-					p.Held.Object.Pos.Y -= 8.
 					p.Held.Entity.RemoveComponent(myecs.Parent)
 					p.Held = nil
 				}

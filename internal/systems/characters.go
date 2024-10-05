@@ -11,8 +11,8 @@ import (
 func CreateCharacter() {
 	obj := object.New().WithID("test")
 	obj.Layer = 1
-	obj.SetRect(pixel.R(0., 0., 48., 48.))
-	spr := img.NewSprite(data.GhostSpriteKey, data.TestBatchKey)
+	obj.SetRect(pixel.R(0., 0., 32., 32.))
+	spr := img.NewSprite(data.GhostSpriteKey, data.TestBatchKey).WithOffset(pixel.V(0., 16.))
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
@@ -30,6 +30,7 @@ func CreateCharacter() {
 func CreateNPC() {
 	obj := object.New().WithID("npc1")
 	obj.Layer = 1
+	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos.X = GetRandomX()
 	obj.Pos.Y = GetRandomY()
 	spr := img.NewSprite(data.AntSpriteKey, data.TestBatchKey)
