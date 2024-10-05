@@ -2,6 +2,13 @@
   "img": "TestMap.png",
   "sprites": [
     {
+      "key": "ant_test",
+      "x": 80,
+      "y": 0,
+      "h": 32,
+      "w": 32
+    },
+    {
       "key": "ghost_test",
       "x": 208,
       "y": 0,

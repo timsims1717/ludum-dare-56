@@ -14,7 +14,6 @@ func CreateEntity() {
 	spr := img.NewSprite(constants.AggressiveVineSpriteKey, constants.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
-		Target: nil,
 		Sprite: spr,
 	}
 	myecs.Manager.NewEntity().

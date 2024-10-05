@@ -9,10 +9,11 @@ import (
 var (
 	PlayerInput = &pxginput.Input{
 		Buttons: map[string]*pxginput.ButtonSet{
-			constants.InputLeft:  pxginput.NewJoyless(pixelgl.KeyLeft),
-			constants.InputRight: pxginput.NewJoyless(pixelgl.KeyRight),
-			constants.InputUp:    pxginput.NewJoyless(pixelgl.KeyUp),
-			constants.InputDown:  pxginput.NewJoyless(pixelgl.KeyDown),
+			constants.InputLeft:   pxginput.NewJoyless(pixelgl.KeyLeft),
+			constants.InputRight:  pxginput.NewJoyless(pixelgl.KeyRight),
+			constants.InputUp:     pxginput.NewJoyless(pixelgl.KeyUp),
+			constants.InputDown:   pxginput.NewJoyless(pixelgl.KeyDown),
+			constants.InputAction: pxginput.NewJoyless(pixelgl.KeySpace),
 		},
 		Mode: pxginput.KeyboardMouse,
 	}

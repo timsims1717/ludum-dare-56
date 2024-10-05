@@ -31,7 +31,9 @@ var (
 	Character  = Manager.NewComponent()
 	MoveTarget = Manager.NewComponent()
 	Input      = Manager.NewComponent()
+	Player     = Manager.NewComponent()
 	Text       = Manager.NewComponent()
+	PickUp     = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
 	HasUpdate = ecs.BuildTag(Update)
@@ -47,7 +49,8 @@ var (
 	HasBorder = ecs.BuildTag(Object, Border)
 	IsBlock   = ecs.BuildTag(Object, Block)
 	IsNPC     = ecs.BuildTag(Object, Character, MoveTarget)
-	IsPlayer  = ecs.BuildTag(Object, Character, Input)
+	IsPlayer  = ecs.BuildTag(Object, Character, Player, Input)
+	IsPickUp  = ecs.BuildTag(Object, Character, PickUp)
 	IsText    = ecs.BuildTag(Object, Drawable, Text)
 )
 
