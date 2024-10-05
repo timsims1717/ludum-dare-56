@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gopxl/pixel"
 	"github.com/gopxl/pixel/pixelgl"
-	"github.com/gopxl/pixel/text"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/states"
 	"github.com/timsims1717/pixel-go-utils/debug"
@@ -11,7 +10,6 @@ import (
 	"github.com/timsims1717/pixel-go-utils/options"
 	"github.com/timsims1717/pixel-go-utils/state"
 	"github.com/timsims1717/pixel-go-utils/timing"
-	"github.com/timsims1717/pixel-go-utils/typeface"
 	"github.com/timsims1717/pixel-go-utils/viewport"
 	"golang.org/x/image/colornames"
 )
@@ -32,7 +30,7 @@ func run() {
 		panic(err)
 	}
 
-	win.SetCursorVisible(false)
+	//win.SetCursorVisible(false)
 	viewport.ILockDefault = true
 	viewport.MainCamera = viewport.New(win.Canvas())
 	viewport.MainCamera.SetRect(pixel.R(0, 0, winWidth, winHeight))
@@ -41,8 +39,8 @@ func run() {
 
 	state.Register(data.GameStateKey, state.New(states.GameState))
 
-	mainFont, err := typeface.LoadTTF("Jive_Talking.ttf", 128.)
-	typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)
+	//mainFont, err := typeface.LoadTTF("Jive_Talking.ttf", 128.)
+	//typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)
 
 	debug.Initialize(&viewport.MainCamera.PostCamPos)
 	debug.ShowText = false
@@ -55,12 +53,13 @@ func run() {
 		debug.Clear()
 
 		state.Update(win)
-		win.Clear(colornames.Black)
+		win.Clear(colornames.Aliceblue)
 
 		viewport.MainCamera.Update()
 		state.Draw(win)
 
 		win.SetSmooth(false)
+		debug.Draw(win)
 
 		win.Update()
 	}

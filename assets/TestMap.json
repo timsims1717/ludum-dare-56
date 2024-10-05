@@ -1,0 +1,12 @@
+{
+  "img": "TestMap.png",
+  "sprites": [
+    {
+      "key": "ghost_test",
+      "x": 208,
+      "y": 0,
+      "h": 64,
+      "w": 32
+    }
+  ]
+}
