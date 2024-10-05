@@ -1,7 +1,6 @@
 package systems
 
 import (
-	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	"github.com/timsims1717/pixel-go-utils/img"
@@ -11,7 +10,7 @@ import (
 func CreateEntity() {
 	obj := object.New().WithID("cactus")
 	obj.Layer = 1
-	spr := img.NewSprite(constants.AggressiveVineSpriteKey, constants.TestBatchKey)
+	spr := img.NewSprite(data.AggressiveVineSpriteKey, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,

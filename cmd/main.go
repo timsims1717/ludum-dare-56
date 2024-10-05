@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/gopxl/pixel"
 	"github.com/gopxl/pixel/pixelgl"
-	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/loading"
 	"github.com/timsims1717/ludum-dare-56/internal/states"
@@ -40,9 +39,10 @@ func run() {
 	viewport.MainCamera.CamPos = pixel.V(winWidth*0.5, winHeight*0.5)
 	object.ILock = false
 
-	state.Register(constants.GameStateKey, state.New(states.GameState))
+	state.Register(data.GameStateKey, state.New(states.GameState))
 
 	loading.LoadSprites()
+	loading.LoadEnities()
 
 	//mainFont, err := typeface.LoadTTF("Jive_Talking.ttf", 128.)
 	//typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)

@@ -2,7 +2,6 @@ package systems
 
 import (
 	"github.com/gopxl/pixel"
-	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	"github.com/timsims1717/pixel-go-utils/img"
@@ -13,7 +12,7 @@ func CreateCharacter() {
 	obj := object.New().WithID("test")
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 48., 48.))
-	spr := img.NewSprite(constants.GhostSpriteKey, constants.TestBatchKey)
+	spr := img.NewSprite(data.GhostSpriteKey, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
@@ -33,7 +32,7 @@ func CreateNPC() {
 	obj.Layer = 1
 	obj.Pos.X = GetRandomX()
 	obj.Pos.Y = GetRandomY()
-	spr := img.NewSprite(constants.AntSpriteKey, constants.TestBatchKey)
+	spr := img.NewSprite(data.AntSpriteKey, data.TestBatchKey)
 	character := &data.Character{
 		Object:   obj,
 		Movement: data.Stationary,

@@ -1,4 +1,4 @@
-package constants
+package data
 
 import (
 	"github.com/timsims1717/pixel-go-utils/viewport"
@@ -35,6 +35,7 @@ const ( // player input
 
 var (
 	TitleText          = "LD56"
+	Enities            = new(EntityDefintions)
 	GlobalSeededRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 )
 

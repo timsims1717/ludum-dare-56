@@ -2,7 +2,6 @@ package systems
 
 import (
 	"github.com/gopxl/pixel"
-	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	pxginput "github.com/timsims1717/pixel-go-input"
@@ -17,7 +16,7 @@ func PickUpSystem() {
 		p, okP := result.Components[myecs.Player].(*data.Player)
 		if okO && okC && okI && okP {
 			if p.Held == nil {
-				if in.Get(constants.InputAction).Pressed() {
+				if in.Get(data.InputAction).Pressed() {
 					for _, pickUp := range myecs.Manager.Query(myecs.IsPickUp) {
 						objPU, okPO := pickUp.Components[myecs.Object].(*object.Object)
 						chPU, okPC := pickUp.Components[myecs.Character].(*data.Character)
@@ -33,7 +32,7 @@ func PickUpSystem() {
 					}
 				}
 			} else {
-				if !in.Get(constants.InputAction).Pressed() {
+				if !in.Get(data.InputAction).Pressed() {
 					p.Held.PickedUp = false
 					p.Held.Object.Offset = pixel.ZV
 					p.Held.Object.Pos.Y -= 8.

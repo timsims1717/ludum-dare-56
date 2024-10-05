@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gopxl/pixel"
 	"github.com/gopxl/pixel/pixelgl"
-	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	"github.com/timsims1717/ludum-dare-56/internal/systems"
@@ -47,17 +46,17 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.ParentSystem()
 	systems.ObjectSystem()
 
-	constants.MainCanvas.Update()
+	data.MainCanvas.Update()
 
 	myecs.UpdateManager()
 	debug.AddText(fmt.Sprintf("Entity Count: %d", myecs.FullCount))
 }
 
 func (s *gameState) Draw(win *pixelgl.Window) {
-	constants.MainCanvas.Canvas.Clear(pixel.RGBA{})
-	systems.DrawLayerSystem(constants.MainCanvas.Canvas, 1)
+	data.MainCanvas.Canvas.Clear(pixel.RGBA{})
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1)
 	img.Clear()
-	constants.MainCanvas.Draw(win)
+	data.MainCanvas.Draw(win)
 
 	systems.TemporarySystem()
 
