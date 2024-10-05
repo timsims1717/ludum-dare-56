@@ -2,16 +2,17 @@ package data
 
 import (
 	"github.com/gopxl/pixel/pixelgl"
+	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	pxginput "github.com/timsims1717/pixel-go-input"
 )
 
 var (
 	PlayerInput = &pxginput.Input{
 		Buttons: map[string]*pxginput.ButtonSet{
-			InputLeft:  pxginput.NewJoyless(pixelgl.KeyLeft),
-			InputRight: pxginput.NewJoyless(pixelgl.KeyRight),
-			InputUp:    pxginput.NewJoyless(pixelgl.KeyUp),
-			InputDown:  pxginput.NewJoyless(pixelgl.KeyDown),
+			constants.InputLeft:  pxginput.NewJoyless(pixelgl.KeyLeft),
+			constants.InputRight: pxginput.NewJoyless(pixelgl.KeyRight),
+			constants.InputUp:    pxginput.NewJoyless(pixelgl.KeyUp),
+			constants.InputDown:  pxginput.NewJoyless(pixelgl.KeyDown),
 		},
 		Mode: pxginput.KeyboardMouse,
 	}

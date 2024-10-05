@@ -1,6 +1,7 @@
 package systems
 
 import (
+	"github.com/timsims1717/ludum-dare-56/internal/constants"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	pxginput "github.com/timsims1717/pixel-go-input"
@@ -14,36 +15,36 @@ func PlayerCharacterSystem() {
 		ch, okC := result.Components[myecs.Character].(*data.Character)
 		in, okI := result.Components[myecs.Input].(*pxginput.Input)
 		if okO && okC && okI {
-			if in.Get(data.InputLeft).JustPressed() {
+			if in.Get(constants.InputLeft).JustPressed() {
 				ch.Horiz = data.Left
-			} else if in.Get(data.InputRight).JustPressed() {
+			} else if in.Get(constants.InputRight).JustPressed() {
 				ch.Horiz = data.Right
-			} else if !in.Get(data.InputLeft).Pressed() && !in.Get(data.InputRight).Pressed() {
+			} else if !in.Get(constants.InputLeft).Pressed() && !in.Get(constants.InputRight).Pressed() {
 				ch.Horiz = data.NoDirection
 			}
-			if in.Get(data.InputUp).JustPressed() {
+			if in.Get(constants.InputUp).JustPressed() {
 				ch.Vert = data.Up
-			} else if in.Get(data.InputDown).JustPressed() {
+			} else if in.Get(constants.InputDown).JustPressed() {
 				ch.Vert = data.Down
-			} else if !in.Get(data.InputUp).Pressed() && !in.Get(data.InputDown).Pressed() {
+			} else if !in.Get(constants.InputUp).Pressed() && !in.Get(constants.InputDown).Pressed() {
 				ch.Vert = data.NoDirection
 			}
-			if ch.Horiz == data.Left && in.Get(data.InputLeft).Pressed() {
+			if ch.Horiz == data.Left && in.Get(constants.InputLeft).Pressed() {
 				obj.Pos.X -= data.PlayerSpeed * timing.DT
-			} else if ch.Horiz == data.Right && in.Get(data.InputRight).Pressed() {
+			} else if ch.Horiz == data.Right && in.Get(constants.InputRight).Pressed() {
 				obj.Pos.X += data.PlayerSpeed * timing.DT
-			} else if in.Get(data.InputLeft).Pressed() {
+			} else if in.Get(constants.InputLeft).Pressed() {
 				obj.Pos.X -= data.PlayerSpeed * timing.DT
-			} else if in.Get(data.InputRight).Pressed() {
+			} else if in.Get(constants.InputRight).Pressed() {
 				obj.Pos.X += data.PlayerSpeed * timing.DT
 			}
-			if ch.Horiz == data.Down && in.Get(data.InputDown).Pressed() {
+			if ch.Horiz == data.Down && in.Get(constants.InputDown).Pressed() {
 				obj.Pos.Y -= data.PlayerSpeed * timing.DT
-			} else if ch.Horiz == data.Up && in.Get(data.InputUp).Pressed() {
+			} else if ch.Horiz == data.Up && in.Get(constants.InputUp).Pressed() {
 				obj.Pos.Y += data.PlayerSpeed * timing.DT
-			} else if in.Get(data.InputDown).Pressed() {
+			} else if in.Get(constants.InputDown).Pressed() {
 				obj.Pos.Y -= data.PlayerSpeed * timing.DT
-			} else if in.Get(data.InputUp).Pressed() {
+			} else if in.Get(constants.InputUp).Pressed() {
 				obj.Pos.Y += data.PlayerSpeed * timing.DT
 			}
 			if ch.Horiz == data.Left {

@@ -1,0 +1,31 @@
+{
+  "StaticEntities":[
+    {
+      "name": "Cactus",
+      "sprite": "cactus_sprite"
+    },
+    {
+      "name": "Bear Trap",
+      "sprite": "bear_trap_sprite"
+    },
+    {
+      "name": "Aggressive Vine",
+      "sprite": "aggressive_vine_sprite"
+    }
+  ],
+  "StaticEntityPool": [
+    {
+      "name": "Aggressive Vine",
+      "weight": 1
+    },
+    {
+      "name": "Bear Trap",
+      "weight": 1
+    },
+    {
+      "name": "Aggressive Vine",
+      "weight": 1
+    }
+
+  ]
+}

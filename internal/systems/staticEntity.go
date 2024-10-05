@@ -8,10 +8,10 @@ import (
 	"github.com/timsims1717/pixel-go-utils/object"
 )
 
-func CreateCharacter() {
-	obj := object.New().WithID("test")
+func CreateEntity() {
+	obj := object.New().WithID("cactus")
 	obj.Layer = 1
-	spr := img.NewSprite(constants.GhostSpriteKey, constants.TestBatchKey)
+	spr := img.NewSprite(constants.AggressiveVineSpriteKey, constants.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Target: nil,
@@ -20,6 +20,9 @@ func CreateCharacter() {
 	myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
 		AddComponent(myecs.Drawable, spr).
-		AddComponent(myecs.Character, character).
-		AddComponent(myecs.Input, data.PlayerInput)
+		AddComponent(myecs.Character, character)
+}
+
+func PickRandomEntity() {
+
 }
