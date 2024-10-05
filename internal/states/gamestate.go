@@ -58,7 +58,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 
 func (s *gameState) Draw(win *pixelgl.Window) {
 	data.MainCanvas.Canvas.Clear(pixel.RGBA{})
-	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1)
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1, data.Layers)
 	img.Clear()
 	data.MainCanvas.Draw(win)
 

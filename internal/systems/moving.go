@@ -102,6 +102,11 @@ func NonPlayerCharacterSystem() {
 						ch.Movement = data.Stationary
 						ch.Target = pixel.ZV
 					} else {
+						if ch.Target.X < 0 {
+							obj.Flip = true
+						} else if ch.Target.X > 0 {
+							obj.Flip = false
+						}
 						obj.Pos.X += ch.Target.X * data.NPCSpeed * timing.DT
 						obj.Pos.Y += ch.Target.Y * data.NPCSpeed * timing.DT
 						ch.Target.X += (data.GlobalRand.Float64()*10. - 5.) * timing.DT

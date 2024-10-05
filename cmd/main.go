@@ -76,11 +76,17 @@ func run() {
 		if data.DebugInput.Get("fuzzy").JustPressed() {
 			options.BilinearFilter = !options.BilinearFilter
 		}
+		if data.DebugInput.Get("vsync").JustPressed() {
+			options.VSync = !options.VSync
+		}
 		if data.DebugInput.Get("debugText").JustPressed() {
 			debug.ShowText = !debug.ShowText
 		}
 		if data.DebugInput.Get("debug").JustPressed() {
 			debug.ShowDebug = !debug.ShowDebug
+		}
+		if data.DebugInput.Get("layers").JustPressed() {
+			data.Layers = !data.Layers
 		}
 
 		state.Update(win)

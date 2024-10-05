@@ -9,6 +9,7 @@ import (
 	"github.com/timsims1717/pixel-go-utils/object"
 	"github.com/timsims1717/pixel-go-utils/typeface"
 	"github.com/timsims1717/pixel-go-utils/util"
+	"sort"
 )
 
 func AnimationSystem() {
@@ -100,10 +101,20 @@ func DrawBatchThing(draw interface{}, obj *object.Object, batch *img.Batcher) {
 	}
 }
 
-func DrawLayerSystem(target pixel.Target, layer int) {
+func DrawLayerSystem(target pixel.Target, layer int, sortByY bool) {
 	currBatches = []string{}
 	count := 0
-	for _, result := range myecs.Manager.Query(myecs.IsDrawable) {
+	results := myecs.Manager.Query(myecs.IsDrawable)
+	if sortByY {
+		sort.Slice(results, func(i, j int) bool {
+			a := results[i]
+			b := results[j]
+			aO := a.Components[myecs.Object].(*object.Object)
+			bO := b.Components[myecs.Object].(*object.Object)
+			return aO.Pos.Y > bO.Pos.Y
+		})
+	}
+	for _, result := range results {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		if okO && obj.Layer == layer && !obj.Hidden && !obj.Unloaded {
 			draw := result.Components[myecs.Drawable]
