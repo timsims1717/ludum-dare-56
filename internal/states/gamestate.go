@@ -30,6 +30,7 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.MainViewInit()
 	systems.UpdateViews()
 	systems.CreateCharacter()
+	systems.CreateNPC()
 }
 
 func (s *gameState) Update(win *pixelgl.Window) {
@@ -37,6 +38,8 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	data.PlayerInput.Update(win, viewport.MainCamera.Mat)
 
 	systems.PlayerCharacterSystem()
+	systems.NonPlayerCharacterSystem()
+	systems.PickUpSystem()
 
 	systems.AnimationSystem()
 	systems.ParentSystem()

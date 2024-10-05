@@ -9,12 +9,13 @@ const ( // states
 const ( // sprites and batches
 	TestBatchKey   = "test_batch"
 	GhostSpriteKey = "ghost_test"
+	AntSpriteKey   = "ant_test"
 )
 
 var (
 	MainCanvas   *viewport.ViewPort
 	CanvasWidth  = 640.
-	CanvasHeight = 320.
+	CanvasHeight = 480.
 )
 
 const ( // player input

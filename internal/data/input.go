@@ -8,10 +8,11 @@ import (
 var (
 	PlayerInput = &pxginput.Input{
 		Buttons: map[string]*pxginput.ButtonSet{
-			InputLeft:  pxginput.NewJoyless(pixelgl.KeyLeft),
-			InputRight: pxginput.NewJoyless(pixelgl.KeyRight),
-			InputUp:    pxginput.NewJoyless(pixelgl.KeyUp),
-			InputDown:  pxginput.NewJoyless(pixelgl.KeyDown),
+			InputLeft:   pxginput.NewJoyless(pixelgl.KeyLeft),
+			InputRight:  pxginput.NewJoyless(pixelgl.KeyRight),
+			InputUp:     pxginput.NewJoyless(pixelgl.KeyUp),
+			InputDown:   pxginput.NewJoyless(pixelgl.KeyDown),
+			InputAction: pxginput.NewJoyless(pixelgl.KeySpace),
 		},
 		Mode: pxginput.KeyboardMouse,
 	}
