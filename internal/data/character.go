@@ -36,6 +36,7 @@ type Character struct {
 	Vert     Direction
 	Timer    *timing.Timer
 	PickedUp bool
+	HP       int
 }
 
 type Player struct {

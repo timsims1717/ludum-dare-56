@@ -1,0 +1,28 @@
+package systems
+
+import (
+	"github.com/timsims1717/ludum-dare-56/internal/data"
+	"github.com/timsims1717/ludum-dare-56/internal/myecs"
+	"github.com/timsims1717/pixel-go-utils/object"
+)
+
+func EntityInteractions() {
+	for _, result := range myecs.Manager.Query(myecs.IsNPC) {
+		obj, okO := result.Components[myecs.Object].(*object.Object)
+		ch, okC := result.Components[myecs.Character].(*data.Character)
+		if okO && okC {
+			for _, result2 := range myecs.Manager.Query(myecs.IsStaticEnity) {
+				obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
+				_, okC2 := result2.Components[myecs.Character].(*data.Character)
+				if okO2 && okC2 {
+					if obj.Rect.Moved(obj.Pos).Intersects(obj2.Rect.Moved(obj2.Pos)) {
+						ch.HP--
+						if ch.HP == 0 {
+							myecs.Manager.DisposeEntity(result.Entity)
+						}
+					}
+				}
+			}
+		}
+	}
+}

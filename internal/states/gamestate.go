@@ -45,6 +45,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.PickUpSystem()
 	systems.NPCCollisions()
 	systems.RoomBorderSystem()
+	systems.EntityInteractions()
 
 	systems.AnimationSystem()
 	systems.ParentSystem()
