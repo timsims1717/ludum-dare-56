@@ -27,5 +27,37 @@
       "name": "Aggressive Vine",
       "weight": 1
     }
+  ],
+  "DynamicEntities":
+  {
+    "Baby Ant": {
+      "name": "Baby Ant",
+      "sprite": "ant_test",
+      "hp": 10
+    },
+    "Baby Slime": {
+      "name": "Baby Slime",
+      "sprite": "baby_slime",
+      "hp": 10
+    },
+    "Baby Deer": {
+      "name": "Baby Deer",
+      "sprite": "baby_deer",
+      "hp": 10
+    }
+  },
+  "DynamicEntityPool": [
+    {
+      "name": "Baby Ant",
+      "weight": 3
+    },
+    {
+      "name": "Baby Deer",
+      "weight": 3
+    },
+    {
+      "name": "Baby Slime",
+      "weight": 1
+    }
   ]
 }

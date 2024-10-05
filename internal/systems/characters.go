@@ -28,17 +28,19 @@ func CreateCharacter() {
 }
 
 func CreateNPC() {
-	obj := object.New().WithID("npc1")
+	RolledEnttity := PickRandomDynamicEntity()
+	obj := object.New().WithID(RolledEnttity.Name)
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos.X = GetRandomX()
 	obj.Pos.Y = GetRandomY()
-	spr := img.NewSprite(data.AntSpriteKey, data.TestBatchKey)
+	spr := img.NewSprite(RolledEnttity.Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object:   obj,
 		Movement: data.Stationary,
 		Target:   pixel.ZV,
 		Sprite:   spr,
+		HP:       RolledEnttity.HP,
 	}
 	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
@@ -47,6 +49,11 @@ func CreateNPC() {
 		AddComponent(myecs.MoveTarget, struct{}{}).
 		AddComponent(myecs.PickUp, struct{}{})
 	character.Entity = e
+}
+
+func PickRandomDynamicEntity() data.DynamicEntity {
+	roll := data.LoadedEnities.DynamicEntities[data.LoadedEnities.DynamicEnityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEnities.DynamicEntityPoolTotal)]]
+	return roll
 }
 
 func GetRandomX() float64 {
