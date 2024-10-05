@@ -1,7 +1,7 @@
 package systems
 
 import (
-	"fmt"
+	"github.com/gopxl/pixel"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	pxginput "github.com/timsims1717/pixel-go-input"
@@ -19,13 +19,25 @@ func PickUpSystem() {
 				if in.Get(data.InputAction).Pressed() {
 					for _, pickUp := range myecs.Manager.Query(myecs.IsPickUp) {
 						objPU, okPO := pickUp.Components[myecs.Object].(*object.Object)
-						_, okPC := pickUp.Components[myecs.Character].(*data.Character)
+						chPU, okPC := pickUp.Components[myecs.Character].(*data.Character)
 						if okPO && okPC {
 							if obj.Rect.Moved(obj.Pos).Contains(objPU.Pos) {
-								fmt.Println("pick up")
+								pickUp.Entity.AddComponent(myecs.Parent, obj)
+								objPU.Offset.Y = 32.
+								chPU.PickedUp = true
+								p.Held = chPU
+								break
 							}
 						}
 					}
+				}
+			} else {
+				if !in.Get(data.InputAction).Pressed() {
+					p.Held.PickedUp = false
+					p.Held.Object.Offset = pixel.ZV
+					p.Held.Object.Pos.Y -= 8.
+					p.Held.Entity.RemoveComponent(myecs.Parent)
+					p.Held = nil
 				}
 			}
 		}

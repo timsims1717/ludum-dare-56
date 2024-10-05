@@ -1,6 +1,7 @@
 package data
 
 import (
+	"github.com/bytearena/ecs"
 	"github.com/gopxl/pixel"
 	"github.com/timsims1717/pixel-go-utils/img"
 	"github.com/timsims1717/pixel-go-utils/object"
@@ -26,6 +27,7 @@ const (
 )
 
 type Character struct {
+	Entity   *ecs.Entity
 	Object   *object.Object
 	Movement Movement
 	Target   pixel.Vec

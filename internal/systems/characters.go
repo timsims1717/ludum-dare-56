@@ -11,19 +11,20 @@ import (
 func CreateCharacter() {
 	obj := object.New().WithID("test")
 	obj.Layer = 1
-	//obj.SetRect(img.Batchers[data.TestBatchKey], )
+	obj.SetRect(pixel.R(0., 0., 48., 48.))
 	spr := img.NewSprite(data.GhostSpriteKey, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
 	}
 	player := &data.Player{}
-	myecs.Manager.NewEntity().
+	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
 		AddComponent(myecs.Drawable, spr).
 		AddComponent(myecs.Character, character).
 		AddComponent(myecs.Input, data.PlayerInput).
 		AddComponent(myecs.Player, player)
+	character.Entity = e
 }
 
 func CreateNPC() {
@@ -38,12 +39,13 @@ func CreateNPC() {
 		Target:   pixel.ZV,
 		Sprite:   spr,
 	}
-	myecs.Manager.NewEntity().
+	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
 		AddComponent(myecs.Drawable, spr).
 		AddComponent(myecs.Character, character).
 		AddComponent(myecs.MoveTarget, struct{}{}).
 		AddComponent(myecs.PickUp, struct{}{})
+	character.Entity = e
 }
 
 func GetRandomX() float64 {

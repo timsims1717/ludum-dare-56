@@ -61,71 +61,76 @@ func NonPlayerCharacterSystem() {
 	for _, result := range myecs.Manager.Query(myecs.IsNPC) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
-		if okO && okC && !ch.PickedUp {
-			switch ch.Movement {
-			case data.Stationary:
-				if ch.Timer == nil {
-					ch.Timer = timing.New(data.GlobalRand.Float64()*3 + 0.5)
-				}
-				if ch.Timer.UpdateDone() {
-					if data.GlobalRand.Intn(2) == 0 {
-						ch.Timer = nil
-						newPos := pixel.V(GetRandomX(), GetRandomY())
-						count := 0
-						for count < 8 {
-							if util.Magnitude(obj.Pos.Sub(newPos)) > 20. {
-								ch.Target = newPos
-								ch.Movement = data.Target
-								break
+		if okO && okC {
+			if ch.PickedUp {
+				ch.Movement = data.Stationary
+				ch.Target = pixel.ZV
+			} else {
+				switch ch.Movement {
+				case data.Stationary:
+					if ch.Timer == nil {
+						ch.Timer = timing.New(data.GlobalRand.Float64()*3 + 0.5)
+					}
+					if ch.Timer.UpdateDone() {
+						if data.GlobalRand.Intn(2) == 0 {
+							ch.Timer = nil
+							newPos := pixel.V(GetRandomX(), GetRandomY())
+							count := 0
+							for count < 8 {
+								if util.Magnitude(obj.Pos.Sub(newPos)) > 20. {
+									ch.Target = newPos
+									ch.Movement = data.Target
+									break
+								}
+								count++
 							}
-							count++
+						} else {
+							ch.Timer = timing.New(data.GlobalRand.Float64()*5 + 1.)
+							newDir := util.Normalize(pixel.V(GetRandomX(), GetRandomY()))
+							ch.Target = newDir
+							ch.Movement = data.Random
 						}
+					}
+				case data.Random:
+					if ch.Timer.UpdateDone() {
+						ch.Movement = data.Stationary
+						ch.Target = pixel.ZV
 					} else {
-						ch.Timer = timing.New(data.GlobalRand.Float64()*5 + 1.)
-						newDir := util.Normalize(pixel.V(GetRandomX(), GetRandomY()))
-						ch.Target = newDir
-						ch.Movement = data.Random
+						obj.Pos.X += ch.Target.X * data.NPCSpeed * timing.DT
+						obj.Pos.Y += ch.Target.Y * data.NPCSpeed * timing.DT
+						ch.Target.X += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
+						ch.Target.Y += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
+						ch.Target = util.Normalize(ch.Target)
 					}
-				}
-			case data.Random:
-				if ch.Timer.UpdateDone() {
-					ch.Movement = data.Stationary
-					ch.Target = pixel.ZV
-				} else {
-					obj.Pos.X += ch.Target.X * data.NPCSpeed * timing.DT
-					obj.Pos.Y += ch.Target.Y * data.NPCSpeed * timing.DT
-					ch.Target.X += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
-					ch.Target.Y += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
-					ch.Target = util.Normalize(ch.Target)
-				}
-			case data.Target:
-				if ch.Target.X < obj.Pos.X {
-					obj.Pos.X -= data.NPCSpeed * timing.DT
-					obj.Flip = true
-					if ch.Target.X > obj.Pos.X {
-						obj.Pos.X = ch.Target.X
-					}
-				} else if ch.Target.X > obj.Pos.X {
-					obj.Pos.X += data.NPCSpeed * timing.DT
-					obj.Flip = false
+				case data.Target:
 					if ch.Target.X < obj.Pos.X {
-						obj.Pos.X = ch.Target.X
+						obj.Pos.X -= data.NPCSpeed * timing.DT
+						obj.Flip = true
+						if ch.Target.X > obj.Pos.X {
+							obj.Pos.X = ch.Target.X
+						}
+					} else if ch.Target.X > obj.Pos.X {
+						obj.Pos.X += data.NPCSpeed * timing.DT
+						obj.Flip = false
+						if ch.Target.X < obj.Pos.X {
+							obj.Pos.X = ch.Target.X
+						}
 					}
-				}
-				if ch.Target.Y < obj.Pos.Y {
-					obj.Pos.Y -= data.NPCSpeed * timing.DT
-					if ch.Target.Y > obj.Pos.Y {
-						obj.Pos.Y = ch.Target.Y
-					}
-				} else if ch.Target.Y > obj.Pos.Y {
-					obj.Pos.Y += data.NPCSpeed * timing.DT
 					if ch.Target.Y < obj.Pos.Y {
-						obj.Pos.Y = ch.Target.Y
+						obj.Pos.Y -= data.NPCSpeed * timing.DT
+						if ch.Target.Y > obj.Pos.Y {
+							obj.Pos.Y = ch.Target.Y
+						}
+					} else if ch.Target.Y > obj.Pos.Y {
+						obj.Pos.Y += data.NPCSpeed * timing.DT
+						if ch.Target.Y < obj.Pos.Y {
+							obj.Pos.Y = ch.Target.Y
+						}
 					}
-				}
-				if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
-					ch.Movement = data.Stationary
-					ch.Target = pixel.ZV
+					if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
+						ch.Movement = data.Stationary
+						ch.Target = pixel.ZV
+					}
 				}
 			}
 		}
