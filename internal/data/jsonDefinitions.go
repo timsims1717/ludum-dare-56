@@ -7,8 +7,10 @@ import (
 )
 
 type EntityDefintions struct {
-	StaticEntities   map[string]StaticEntity `json:"StaticEntities"`
-	StaticEntityPool []EntityRoll            `json:"StaticEntityPool"`
+	StaticEntities          map[string]StaticEntity `json:"StaticEntities"`
+	StaticEntityPool        []EntityRoll            `json:"StaticEntityPool"`
+	StaticEnityPoolExpanded []string
+	StaticEntityPoolTotal   int
 }
 
 type StaticEntity struct {
