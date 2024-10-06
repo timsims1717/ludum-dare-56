@@ -18,8 +18,11 @@ type EntityDefintions struct {
 }
 
 type StaticEntity struct {
-	Name   string `json:"key"`
-	Sprite string `json:"sprite"`
+	Name         string `json:"key"`
+	Sprite       string `json:"sprite"`
+	Damage       int    `json:"damage"`
+	Damagetype   string `json:"damagetype"`
+	IsCollidable bool   `json:"IsCollidable"`
 }
 
 type EntityRoll struct {

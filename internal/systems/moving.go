@@ -80,7 +80,7 @@ func NonPlayerCharacterSystem() {
 					if ch.Timer.UpdateDone() {
 						if data.GlobalRand.Intn(2) == 0 {
 							ch.Timer = timing.New(data.GlobalRand.Float64()*7. + 1.)
-							newPos := pixel.V(GetRandomX(), GetRandomY())
+							newPos := pixel.V(data.GetRandomX(), data.GetRandomY())
 							count := 0
 							for count < 8 {
 								if util.Magnitude(obj.Pos.Sub(newPos)) > 20. {
@@ -92,7 +92,7 @@ func NonPlayerCharacterSystem() {
 							}
 						} else {
 							ch.Timer = timing.New(data.GlobalRand.Float64()*5. + 1.)
-							newDir := util.Normalize(pixel.V(GetRandomX(), GetRandomY()))
+							newDir := util.Normalize(pixel.V(data.GetRandomX(), data.GetRandomY()))
 							ch.Target = newDir
 							ch.Movement = data.Random
 						}

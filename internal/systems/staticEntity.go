@@ -13,10 +13,13 @@ func CreateEntity() {
 	obj := object.New().WithID(entityRoll.Name)
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Layer = 1
+	obj.Pos.X = data.GetRandomX()
+	obj.Pos.Y = data.GetRandomY()
 	spr := img.NewSprite(entityRoll.Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
+		Damage: entityRoll.Damage,
 	}
 	myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).

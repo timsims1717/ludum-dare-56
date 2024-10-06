@@ -46,6 +46,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.NPCCollisions()
 	systems.RoomBorderSystem()
 	systems.EntityInteractions()
+	systems.UpdateInvincibility()
 
 	systems.AnimationSystem()
 	systems.ParentSystem()

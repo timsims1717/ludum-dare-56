@@ -35,6 +35,7 @@ var (
 	Text        = Manager.NewComponent()
 	PickUp      = Manager.NewComponent()
 	StaticEnity = Manager.NewComponent()
+	Invincible  = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
 	HasUpdate = ecs.BuildTag(Update)
@@ -55,6 +56,7 @@ var (
 	IsPickUp      = ecs.BuildTag(Object, Character, PickUp)
 	IsText        = ecs.BuildTag(Object, Drawable, Text)
 	IsStaticEnity = ecs.BuildTag(Object, Character, StaticEnity)
+	IsInvincible  = ecs.BuildTag(Object, Character, Invincible)
 )
 
 func UpdateManager() {

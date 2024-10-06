@@ -3,15 +3,24 @@
   {
     "Cactus": {
       "name": "Cactus",
-      "sprite": "cactus_sprite"
+      "sprite": "cactus_sprite",
+      "damage": 1,
+      "damagetype": "piercing",
+      "IsCollidable": true
     },
     "Bear Trap": {
       "name": "Bear Trap",
-      "sprite": "bear_trap_sprite"
+      "sprite": "bear_trap_sprite",
+      "damage": 3,
+      "damagetype": "bludgeoning",
+      "IsCollidable": true
     },
     "Aggressive Vine": {
       "name": "Aggressive Vine",
-      "sprite": "aggressive_vine_sprite"
+      "sprite": "aggressive_vine_sprite",
+      "damage": 1,
+      "damagetype": "lightning",
+      "IsCollidable": true
     }
     },
   "StaticEntityPool": [
@@ -33,17 +42,17 @@
     "Baby Ant": {
       "name": "Baby Ant",
       "sprite": "ant_test",
-      "hp": 10
+      "hp": 4
     },
     "Baby Slime": {
       "name": "Baby Slime",
       "sprite": "baby_slime",
-      "hp": 10
+      "hp": 3
     },
     "Baby Deer": {
       "name": "Baby Deer",
       "sprite": "baby_deer",
-      "hp": 10
+      "hp": 5
     }
   },
   "DynamicEntityPool": [

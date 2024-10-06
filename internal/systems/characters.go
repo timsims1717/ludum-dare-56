@@ -32,8 +32,8 @@ func CreateNPC() {
 	obj := object.New().WithID(RolledEnttity.Name)
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
-	obj.Pos.X = GetRandomX()
-	obj.Pos.Y = GetRandomY()
+	obj.Pos.X = data.GetRandomX()
+	obj.Pos.Y = data.GetRandomY()
 	spr := img.NewSprite(RolledEnttity.Sprite, data.TestBatchKey)
 	character := &data.Character{
 		Object:   obj,
@@ -54,12 +54,4 @@ func CreateNPC() {
 func PickRandomDynamicEntity() data.DynamicEntity {
 	roll := data.LoadedEnities.DynamicEntities[data.LoadedEnities.DynamicEnityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEnities.DynamicEntityPoolTotal)]]
 	return roll
-}
-
-func GetRandomX() float64 {
-	return data.GlobalRand.Float64()*300. - 150.
-}
-
-func GetRandomY() float64 {
-	return data.GlobalRand.Float64()*200. - 100.
 }
