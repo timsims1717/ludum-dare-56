@@ -8,6 +8,12 @@ import (
 	"github.com/timsims1717/pixel-go-utils/object"
 )
 
+func PopulateLandscape() {
+	for i := 0; i < data.LoadedEntities.DifficultyPool[data.Difficulty].Rolls; i++ {
+		CreateEntity()
+	}
+}
+
 func CreateEntity() {
 	entityRoll := PickRandomStaticEntity()
 	obj := object.New().WithID(entityRoll.Name)

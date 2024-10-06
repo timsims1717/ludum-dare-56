@@ -9,7 +9,7 @@ func LoadEnities() {
 	if err != nil {
 		panic(err)
 	}
-	for _, value := range entities.StaticEntityPool {
+	for _, value := range entities.DifficultyPool[data.Difficulty].StaticEntityPool {
 		for i := 0; i < value.Weight; i++ {
 			entities.StaticEntityPoolExpanded = append(entities.StaticEntityPoolExpanded, value.Name)
 			entities.StaticEntityPoolTotal++

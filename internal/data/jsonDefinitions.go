@@ -7,8 +7,8 @@ import (
 )
 
 type EntityDefinitions struct {
-	StaticEntities            map[string]*StaticEntity `json:"StaticEntities"`
-	StaticEntityPool          []EntityRoll             `json:"StaticEntityPool"`
+	StaticEntities            map[string]*StaticEntity   `json:"StaticEntities"`
+	DifficultyPool            map[string]*DifficultyPool `json:"DifficultyPool"`
 	StaticEntityPoolExpanded  []string
 	StaticEntityPoolTotal     int
 	DynamicEntities           map[string]*DynamicEntity `json:"DynamicEntities"`
@@ -23,6 +23,11 @@ type StaticEntity struct {
 	Damage       int    `json:"damage"`
 	Damagetype   string `json:"damagetype"`
 	IsCollidable bool   `json:"IsCollidable"`
+}
+
+type DifficultyPool struct {
+	Rolls            int          `json:"rolls"`
+	StaticEntityPool []EntityRoll `json:"pool"`
 }
 
 type EntityRoll struct {

@@ -10,6 +10,7 @@ func InitGameplay() {
 	CreateDropOffList(len(data.LoadedEntities.DynamicEntityPool))
 	data.TheGamePhase = data.ParentDropOff
 	data.ParentTimer = nil
+
 }
 
 func CreateDropOffList(count int) {

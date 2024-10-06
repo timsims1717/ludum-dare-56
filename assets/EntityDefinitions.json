@@ -22,21 +22,60 @@
       "damagetype": "lightning",
       "IsCollidable": true
     }
+  },
+  "difficultypool": {
+    "easy": {
+      "rolls": 1,
+      "pool": [
+        {
+          "name": "Cactus",
+          "weight": 1
+        },
+        {
+          "name": "Bear Trap",
+          "weight": 1
+        },
+        {
+          "name": "Aggressive Vine",
+          "weight": 1
+        }
+      ]
     },
-  "StaticEntityPool": [
-    {
-      "name": "Cactus",
-      "weight": 1
+    "medium":{
+      "rolls": 2,
+      "pool": [
+        {
+          "name": "Cactus",
+          "weight": 1
+        },
+        {
+          "name": "Bear Trap",
+          "weight": 1
+        },
+        {
+          "name": "Aggressive Vine",
+          "weight": 1
+        }
+      ]
     },
-    {
-      "name": "Bear Trap",
-      "weight": 1
-    },
-    {
-      "name": "Aggressive Vine",
-      "weight": 1
+    "hard": {
+      "rolls": 3,
+      "pool": [
+        {
+          "name": "Cactus",
+          "weight": 1
+        },
+        {
+          "name": "Bear Trap",
+          "weight": 1
+        },
+        {
+          "name": "Aggressive Vine",
+          "weight": 1
+        }
+      ]
     }
-  ],
+  },
   "DynamicEntities":
   {
     "Baby Ant": {
