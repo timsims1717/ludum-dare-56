@@ -14,14 +14,28 @@ func KidBehaviorSystem() {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
 		kid, okK := result.Components[myecs.Kid].(*data.Kid)
-		if okO && okC && okK {
+		if okO && okC && okK && !result.Entity.HasComponent(myecs.Parent) {
 			if kid.DroppedOff && !kid.PickedUp {
 				if ch.Movement == data.Stationary {
-					if ch.Timer == nil {
-						ch.Timer = timing.New(data.GlobalSeededRandom.Float64()*3 + 0.5)
+					if kid.KidParent.KidParent.ParentState == data.PickingUp {
+						if data.MatRect.Moved(data.MatPos).Contains(obj.Pos) {
+							kid.PickedUp = true
+							ch.Target = data.ParentPos
+							ch.Target.X += data.GlobalSeededRandom.Float64()*64. - 32.
+							ch.Target.Y += data.GlobalSeededRandom.Float64() * 64.
+							ch.Movement = data.Straight
+							ch.NoStop = true
+							ch.InRoom = false
+							result.Entity.RemoveComponent(myecs.Collide)
+						}
 					}
-					if ch.Timer.UpdateDone() {
-						ChangeKidMovement(ch, obj)
+					if !kid.PickedUp {
+						if ch.Timer == nil {
+							ch.Timer = timing.New(data.GlobalSeededRandom.Float64()*3 + 0.5)
+						}
+						if ch.Timer.UpdateDone() {
+							ChangeKidMovement(ch, obj)
+						}
 					}
 				}
 			} else if !kid.DroppedOff {
@@ -64,7 +78,8 @@ func KidParentBehaviorSystem() {
 		par, okP := result.Components[myecs.KidParent].(*data.KidParent)
 		if okO && okC && okP {
 			if ch.Movement == data.Stationary {
-				if !par.DropOffComplete {
+				switch par.ParentState {
+				case data.TimeToDropOff:
 					dropComplete := true
 					for _, kid := range par.Kids {
 						if !kid.Kid.DroppedOff {
@@ -74,9 +89,32 @@ func KidParentBehaviorSystem() {
 					}
 					if dropComplete {
 						ch.Target = data.ParentPos
-						ch.Movement = data.Target
+						ch.Movement = data.Straight
 						ch.NoStop = true
-						par.DropOffComplete = true
+						par.ParentState = data.DropOffComplete
+					}
+				case data.TimeToPickUp:
+					par.ParentState = data.PickingUp
+				case data.PickingUp:
+					pickUpComplete := true
+					for _, kid := range par.Kids {
+						if !kid.Kid.PickedUp {
+							pickUpComplete = false
+							break
+						}
+					}
+					if pickUpComplete {
+						ch.Target = data.ParentPos
+						ch.Movement = data.Straight
+						ch.NoStop = true
+						par.ParentState = data.PickUpComplete
+						for _, kid := range par.Kids {
+							kid.Target = data.ParentPos
+							kid.Target.X += data.GlobalSeededRandom.Float64()*64. - 32.
+							kid.Target.Y += data.GlobalSeededRandom.Float64()*64. - 32.
+							kid.Movement = data.Straight
+							kid.NoStop = true
+						}
 					}
 				}
 			}

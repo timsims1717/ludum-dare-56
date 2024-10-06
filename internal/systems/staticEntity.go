@@ -15,7 +15,7 @@ func CreateEntity() {
 	obj.Layer = 1
 	obj.Pos.X = data.GetRandomX()
 	obj.Pos.Y = data.GetRandomY()
-	spr := img.NewSprite(entityRoll.Sprite, data.TestBatchKey)
+	spr := img.NewSprite(entityRoll.Sprite, data.BatchKeyTest)
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,

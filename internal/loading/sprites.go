@@ -10,5 +10,5 @@ func LoadSprites() {
 	if err != nil {
 		panic(err)
 	}
-	img.AddBatcher(data.TestBatchKey, testSheet, true, true)
+	img.AddBatcher(data.BatchKeyTest, testSheet, true, true)
 }

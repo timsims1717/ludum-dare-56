@@ -28,12 +28,10 @@ func (s *gameState) Unload(win *pixelgl.Window) {
 
 func (s *gameState) Load(win *pixelgl.Window) {
 	systems.MainViewInit()
+	systems.BuildRoom()
 	systems.UpdateViews()
 	systems.CreateCharacter()
-	//systems.CreateEntity()
-	//for i := 0; i < 12; i++ {
-	//	systems.CreateRandomKid()
-	//}
+	systems.InitGameplay()
 }
 
 func (s *gameState) Update(win *pixelgl.Window) {
@@ -41,7 +39,14 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	data.PlayerInput.Update(win, viewport.MainCamera.Mat)
 
 	// game control systems
-	systems.DropOffSystem()
+	switch data.TheGamePhase {
+	case data.ParentDropOff:
+		systems.DropOffSystem()
+	case data.Gameplay:
+		systems.GameplaySystem()
+	case data.ParentPickUp:
+		systems.ParentPickUpSystem()
+	}
 
 	// entity control systems
 	systems.KidBehaviorSystem()
@@ -66,6 +71,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 
 func (s *gameState) Draw(win *pixelgl.Window) {
 	data.MainCanvas.Canvas.Clear(pixel.RGBA{})
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, 0, false)
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1, data.Layers)
 	img.Clear()
 	data.MainCanvas.Draw(win)

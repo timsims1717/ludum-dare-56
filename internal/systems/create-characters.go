@@ -12,7 +12,7 @@ func CreateCharacter() {
 	obj := object.New().WithID("test")
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
-	spr := img.NewSprite(data.GhostSpriteKey, data.TestBatchKey).WithOffset(pixel.V(0., 16.))
+	spr := img.NewSprite(data.SpriteKeyGhost, data.BatchKeyTest).WithOffset(pixel.V(0., 16.))
 	character := &data.Character{
 		Object: obj,
 		Sprite: spr,
@@ -36,7 +36,7 @@ func CreateRandomKid() *data.Character {
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos.X = GetRandomX()
 	obj.Pos.Y = GetRandomY()
-	spr := img.NewSprite(entity.Sprite, data.TestBatchKey)
+	spr := img.NewSprite(entity.Sprite, data.BatchKeyTest)
 	character := &data.Character{
 		Object:     obj,
 		Movement:   data.Stationary,
@@ -65,7 +65,7 @@ func CreateKid(entity *data.DynamicEntity, pos pixel.Vec) *data.Character {
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos = pos
-	spr := img.NewSprite(entity.Sprite, data.TestBatchKey)
+	spr := img.NewSprite(entity.Sprite, data.BatchKeyTest)
 	character := &data.Character{
 		Object:     obj,
 		Movement:   data.Stationary,
@@ -95,7 +95,7 @@ func CreateParent(entity string, kidCount int, pos pixel.Vec) *data.Character {
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos = pos
-	spr := img.NewSprite(parent.Sprite, data.TestBatchKey).WithOffset(pixel.V(0., 16.))
+	spr := img.NewSprite(parent.Sprite, data.BatchKeyTest).WithOffset(pixel.V(0., 16.))
 	character := &data.Character{
 		Object:   obj,
 		Movement: data.Stationary,
@@ -147,6 +147,7 @@ func CreateParentAndKids(entityName string) {
 		kid.Target = data.InRoomPos
 		kid.Movement = data.Straight
 		kid.NoStop = true
+		kid.Kid.KidParent = parent
 		parent.KidParent.Kids = append(parent.KidParent.Kids, kid)
 	}
 }

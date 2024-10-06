@@ -57,14 +57,24 @@ type Player struct {
 type Kid struct {
 	DroppedOff bool
 	PickedUp   bool
+	KidParent  *Character
 }
 
 type KidParent struct {
-	KidsDropped     int
-	Kids            []*Character
-	DropOffComplete bool
-	PickUpComplete  bool
+	KidsDropped int
+	Kids        []*Character
+	ParentState ParentState
 }
+
+type ParentState int
+
+const (
+	TimeToDropOff = iota
+	DropOffComplete
+	TimeToPickUp
+	PickingUp
+	PickUpComplete
+)
 
 var (
 	PlayerSpeed = 100.

@@ -11,17 +11,14 @@ const ( // states
 )
 
 const ( // sprites and batches
-	TestBatchKey            = "test_batch"
-	GhostSpriteKey          = "ghost_test"
-	AntSpriteKey            = "ant_test"
-	CactusSpriteKey         = "cactus_sprite"
-	BearTrapSpriteKey       = "bear_trap_sprite"
-	AggressiveVineSpriteKey = "aggressive_vine_sprite"
+	BatchKeyTest   = "test_batch"
+	SpriteKeyGhost = "ghost_test"
+	SpriteKeyMat   = "mat"
 )
 
 var (
 	MainCanvas   *viewport.ViewPort
-	CanvasWidth  = 640.
+	CanvasWidth  = 740.
 	CanvasHeight = 480.
 )
 
