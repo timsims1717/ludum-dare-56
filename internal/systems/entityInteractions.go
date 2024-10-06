@@ -7,7 +7,7 @@ import (
 )
 
 func EntityInteractions() {
-	for _, result := range myecs.Manager.Query(myecs.IsNPC) {
+	for _, result := range myecs.Manager.Query(myecs.HasMoveTarget) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
 		if okO && okC {

@@ -22,8 +22,10 @@ type Movement int
 
 const (
 	Target = iota
+	TargetNoStop
 	Random
 	Stationary
+	Waiting
 )
 
 type Character struct {
@@ -37,10 +39,17 @@ type Character struct {
 	Timer    *timing.Timer
 	PickedUp bool
 	HP       int
+	Speed    float64
 }
 
 type Player struct {
 	Held *Character
+}
+
+type KidParent struct {
+	KidsDropped     int
+	DropOffComplete bool
+	PickUpComplete  bool
 }
 
 var (

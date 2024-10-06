@@ -10,7 +10,7 @@ import (
 	"github.com/timsims1717/pixel-go-utils/util"
 )
 
-func PlayerCharacterSystem() {
+func PlayerMoveSystem() {
 	for _, result := range myecs.Manager.Query(myecs.IsPlayer) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
@@ -63,8 +63,8 @@ func PlayerCharacterSystem() {
 	}
 }
 
-func NonPlayerCharacterSystem() {
-	for _, result := range myecs.Manager.Query(myecs.IsNPC) {
+func NonPlayerMoveSystem() {
+	for _, result := range myecs.Manager.Query(myecs.HasMoveTarget) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
 		if okO && okC {
@@ -73,30 +73,6 @@ func NonPlayerCharacterSystem() {
 				ch.Target = pixel.ZV
 			} else {
 				switch ch.Movement {
-				case data.Stationary:
-					if ch.Timer == nil {
-						ch.Timer = timing.New(data.GlobalRand.Float64()*3 + 0.5)
-					}
-					if ch.Timer.UpdateDone() {
-						if data.GlobalRand.Intn(2) == 0 {
-							ch.Timer = timing.New(data.GlobalRand.Float64()*7. + 1.)
-							newPos := pixel.V(GetRandomX(), GetRandomY())
-							count := 0
-							for count < 8 {
-								if util.Magnitude(obj.Pos.Sub(newPos)) > 20. {
-									ch.Target = newPos
-									ch.Movement = data.Target
-									break
-								}
-								count++
-							}
-						} else {
-							ch.Timer = timing.New(data.GlobalRand.Float64()*5. + 1.)
-							newDir := util.Normalize(pixel.V(GetRandomX(), GetRandomY()))
-							ch.Target = newDir
-							ch.Movement = data.Random
-						}
-					}
 				case data.Random:
 					if ch.Timer.UpdateDone() {
 						ch.Movement = data.Stationary
@@ -107,14 +83,14 @@ func NonPlayerCharacterSystem() {
 						} else if ch.Target.X > 0 {
 							obj.Flip = false
 						}
-						obj.Pos.X += ch.Target.X * data.NPCSpeed * timing.DT
-						obj.Pos.Y += ch.Target.Y * data.NPCSpeed * timing.DT
-						ch.Target.X += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
-						ch.Target.Y += (data.GlobalRand.Float64()*10. - 5.) * timing.DT
+						obj.Pos.X += ch.Target.X * ch.Speed * timing.DT
+						obj.Pos.Y += ch.Target.Y * ch.Speed * timing.DT
+						ch.Target.X += (data.GlobalSeededRandom.Float64()*10. - 5.) * timing.DT
+						ch.Target.Y += (data.GlobalSeededRandom.Float64()*10. - 5.) * timing.DT
 						ch.Target = util.Normalize(ch.Target)
 					}
-				case data.Target:
-					if ch.Timer.UpdateDone() {
+				case data.Target, data.TargetNoStop:
+					if ch.Movement == data.Target && ch.Timer.UpdateDone() {
 						ch.Movement = data.Stationary
 						ch.Target = pixel.ZV
 					} else {
@@ -139,8 +115,8 @@ func NonPlayerCharacterSystem() {
 						}
 						if horiz != data.NoDirection || vert != data.NoDirection {
 							mov = util.Normalize(mov)
-							obj.Pos.X += mov.X * data.NPCSpeed * timing.DT
-							obj.Pos.Y += mov.Y * data.NPCSpeed * timing.DT
+							obj.Pos.X += mov.X * ch.Speed * timing.DT
+							obj.Pos.Y += mov.Y * ch.Speed * timing.DT
 
 							if horiz == data.Left && ch.Target.X > obj.Pos.X {
 								obj.Pos.X = ch.Target.X
@@ -184,11 +160,11 @@ func RoomBorderSystem() {
 }
 
 func NPCCollisions() {
-	for i, result := range myecs.Manager.Query(myecs.IsNPC) {
+	for i, result := range myecs.Manager.Query(myecs.HasMoveTarget) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		_, okC := result.Components[myecs.Character].(*data.Character)
 		if okO && okC && !result.Entity.HasComponent(myecs.Parent) {
-			for j, result2 := range myecs.Manager.Query(myecs.IsNPC) {
+			for j, result2 := range myecs.Manager.Query(myecs.HasMoveTarget) {
 				if j > i {
 					obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
 					_, okC2 := result2.Components[myecs.Character].(*data.Character)

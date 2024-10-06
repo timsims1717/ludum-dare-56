@@ -32,7 +32,7 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.CreateCharacter()
 	systems.CreateEntity()
 	for i := 0; i < 12; i++ {
-		systems.CreateNPC()
+		systems.CreateRandomKid()
 	}
 }
 
@@ -40,8 +40,10 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	debug.AddText("Game State")
 	data.PlayerInput.Update(win, viewport.MainCamera.Mat)
 
-	systems.PlayerCharacterSystem()
-	systems.NonPlayerCharacterSystem()
+	systems.KidBehaviorSystem()
+	systems.KidParentBehaviorSystem()
+	systems.PlayerMoveSystem()
+	systems.NonPlayerMoveSystem()
 	systems.PickUpSystem()
 	systems.NPCCollisions()
 	systems.RoomBorderSystem()

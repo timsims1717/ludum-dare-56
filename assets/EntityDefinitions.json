@@ -33,17 +33,47 @@
     "Baby Ant": {
       "name": "Baby Ant",
       "sprite": "ant_test",
-      "hp": 10
+      "hp": 4,
+      "min": 3,
+      "max": 7,
+      "speed": 45,
+      "parent": "Mama Ant"
+    },
+    "Mama Ant": {
+      "name": "Mama Ant",
+      "sprite": "ant_parent_test",
+      "hp": -1,
+      "speed": 45
     },
     "Baby Slime": {
       "name": "Baby Slime",
       "sprite": "baby_slime",
-      "hp": 10
+      "hp": 3,
+      "min": 2,
+      "max": 4,
+      "speed": 35,
+      "parent": "Slime Boss"
+    },
+    "Slime Boss": {
+      "name": "Slime Boss",
+      "sprite": "slime_boss",
+      "hp": -1,
+      "speed": 35
     },
     "Baby Deer": {
       "name": "Baby Deer",
       "sprite": "baby_deer",
-      "hp": 10
+      "hp": 5,
+      "min": 1,
+      "max": 1,
+      "speed": 65,
+      "parent": "Daddy Deer"
+    },
+    "Daddy Deer": {
+      "name": "Daddy Deer",
+      "sprite": "deer_daddy",
+      "hp": -1,
+      "speed": 65
     }
   },
   "DynamicEntityPool": [

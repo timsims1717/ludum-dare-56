@@ -7,12 +7,12 @@ import (
 )
 
 type EntityDefintions struct {
-	StaticEntities           map[string]StaticEntity `json:"StaticEntities"`
-	StaticEntityPool         []EntityRoll            `json:"StaticEntityPool"`
+	StaticEntities           map[string]*StaticEntity `json:"StaticEntities"`
+	StaticEntityPool         []EntityRoll             `json:"StaticEntityPool"`
 	StaticEnityPoolExpanded  []string
 	StaticEntityPoolTotal    int
-	DynamicEntities          map[string]DynamicEntity `json:"DynamicEntities"`
-	DynamicEntityPool        []EntityRoll             `json:"DynamicEntityPool"`
+	DynamicEntities          map[string]*DynamicEntity `json:"DynamicEntities"`
+	DynamicEntityPool        []EntityRoll              `json:"DynamicEntityPool"`
 	DynamicEnityPoolExpanded []string
 	DynamicEntityPoolTotal   int
 }
@@ -28,9 +28,13 @@ type EntityRoll struct {
 }
 
 type DynamicEntity struct {
-	Name   string `json:"key"`
-	Sprite string `json:"sprite"`
-	HP     int    `json:"hp"`
+	Name   string  `json:"key"`
+	Parent string  `json:"parent"`
+	Sprite string  `json:"sprite"`
+	HP     int     `json:"hp"`
+	Min    int     `json:"min"`
+	Max    int     `json:"max"`
+	Speed  float64 `json:"speed"`
 }
 
 func LoadEntityDefinitions(path string) (*EntityDefintions, error) {
@@ -47,4 +51,9 @@ func LoadEntityDefinitions(path string) (*EntityDefintions, error) {
 		return nil, errors.Wrap(err, errMsg)
 	}
 	return &entityDefintions, nil
+}
+
+func PickRandomDynamicEntity() *DynamicEntity {
+	roll := LoadedEnities.DynamicEntities[LoadedEnities.DynamicEnityPoolExpanded[GlobalSeededRandom.Intn(LoadedEnities.DynamicEntityPoolTotal)]]
+	return roll
 }

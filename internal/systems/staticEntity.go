@@ -25,7 +25,7 @@ func CreateEntity() {
 		AddComponent(myecs.StaticEnity, character)
 }
 
-func PickRandomStaticEntity() data.StaticEntity {
+func PickRandomStaticEntity() *data.StaticEntity {
 	roll := data.LoadedEnities.StaticEntities[data.LoadedEnities.StaticEnityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEnities.StaticEntityPoolTotal)]]
 	return roll
 }
