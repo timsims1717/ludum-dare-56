@@ -74,9 +74,10 @@ func NonPlayerMoveSystem() {
 			} else {
 				switch ch.Movement {
 				case data.Random:
-					if ch.Timer.UpdateDone() {
+					if !ch.NoStop && ch.Timer.UpdateDone() {
 						ch.Movement = data.Stationary
 						ch.Target = pixel.ZV
+						ch.Timer = nil
 					} else {
 						if ch.Target.X < 0 {
 							obj.Flip = true
@@ -89,10 +90,11 @@ func NonPlayerMoveSystem() {
 						ch.Target.Y += (data.GlobalSeededRandom.Float64()*10. - 5.) * timing.DT
 						ch.Target = util.Normalize(ch.Target)
 					}
-				case data.Target, data.TargetNoStop:
-					if ch.Movement == data.Target && ch.Timer.UpdateDone() {
+				case data.Target:
+					if !ch.NoStop && ch.Timer.UpdateDone() {
 						ch.Movement = data.Stationary
 						ch.Target = pixel.ZV
+						ch.Timer = nil
 					} else {
 						mov := pixel.ZV
 						horiz := data.NoDirection
@@ -113,26 +115,30 @@ func NonPlayerMoveSystem() {
 							mov.Y = 1
 							vert = data.Up
 						}
-						if horiz != data.NoDirection || vert != data.NoDirection {
-							mov = util.Normalize(mov)
-							obj.Pos.X += mov.X * ch.Speed * timing.DT
-							obj.Pos.Y += mov.Y * ch.Speed * timing.DT
-
-							if horiz == data.Left && ch.Target.X > obj.Pos.X {
-								obj.Pos.X = ch.Target.X
-							} else if horiz == data.Right && ch.Target.X < obj.Pos.X {
-								obj.Pos.X = ch.Target.X
-							}
-							if vert == data.Down && ch.Target.Y > obj.Pos.Y {
-								obj.Pos.Y = ch.Target.Y
-							} else if vert == data.Up && ch.Target.Y < obj.Pos.Y {
-								obj.Pos.Y = ch.Target.Y
-							}
-							if ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y {
-								ch.Movement = data.Stationary
-								ch.Target = pixel.ZV
-							}
+						MoveInDir(ch, obj, mov, data.Direction(horiz), data.Direction(vert))
+					}
+				case data.Straight:
+					if !ch.NoStop && ch.Timer.UpdateDone() {
+						ch.Movement = data.Stationary
+						ch.Target = pixel.ZV
+						ch.Timer = nil
+					} else {
+						horiz := data.NoDirection
+						vert := data.NoDirection
+						if ch.Target.X < obj.Pos.X {
+							obj.Flip = true
+							horiz = data.Left
+						} else if ch.Target.X > obj.Pos.X {
+							obj.Flip = false
+							horiz = data.Right
 						}
+						if ch.Target.Y < obj.Pos.Y {
+							vert = data.Down
+						} else if ch.Target.Y > obj.Pos.Y {
+							vert = data.Up
+						}
+						mov := ch.Target.Sub(obj.Pos)
+						MoveInDir(ch, obj, mov, data.Direction(horiz), data.Direction(vert))
 					}
 				}
 			}
@@ -140,11 +146,36 @@ func NonPlayerMoveSystem() {
 	}
 }
 
+func MoveInDir(ch *data.Character, obj *object.Object, mov pixel.Vec, horiz, vert data.Direction) {
+	if horiz != data.NoDirection || vert != data.NoDirection {
+		mov = util.Normalize(mov)
+		obj.Pos.X += mov.X * ch.Speed * timing.DT
+		obj.Pos.Y += mov.Y * ch.Speed * timing.DT
+
+		if horiz == data.Left && ch.Target.X > obj.Pos.X {
+			obj.Pos.X = ch.Target.X
+		} else if horiz == data.Right && ch.Target.X < obj.Pos.X {
+			obj.Pos.X = ch.Target.X
+		}
+		if vert == data.Down && ch.Target.Y > obj.Pos.Y {
+			obj.Pos.Y = ch.Target.Y
+		} else if vert == data.Up && ch.Target.Y < obj.Pos.Y {
+			obj.Pos.Y = ch.Target.Y
+		}
+	}
+	if (ch.Target.X == obj.Pos.X && ch.Target.Y == obj.Pos.Y) ||
+		(ch.TargetDist > util.Magnitude(ch.Target.Sub(obj.Pos))) {
+		ch.Movement = data.Stationary
+		ch.Target = pixel.ZV
+		ch.Timer = nil
+	}
+}
+
 func RoomBorderSystem() {
 	for _, result := range myecs.Manager.Query(myecs.IsCharacter) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
-		_, okC := result.Components[myecs.Character].(*data.Character)
-		if okO && okC && !result.Entity.HasComponent(myecs.Parent) {
+		ch, okC := result.Components[myecs.Character].(*data.Character)
+		if okO && okC && !result.Entity.HasComponent(myecs.Parent) && ch.InRoom {
 			if obj.Pos.X+obj.HalfWidth > data.RoomBorder.Max.X {
 				obj.Pos.X = data.RoomBorder.Max.X - obj.HalfWidth
 			} else if obj.Pos.X-obj.HalfWidth < data.RoomBorder.Min.X {
@@ -160,15 +191,13 @@ func RoomBorderSystem() {
 }
 
 func NPCCollisions() {
-	for i, result := range myecs.Manager.Query(myecs.HasMoveTarget) {
+	for i, result := range myecs.Manager.Query(myecs.IsCollide) {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
-		_, okC := result.Components[myecs.Character].(*data.Character)
-		if okO && okC && !result.Entity.HasComponent(myecs.Parent) {
-			for j, result2 := range myecs.Manager.Query(myecs.HasMoveTarget) {
+		if okO && !result.Entity.HasComponent(myecs.Parent) {
+			for j, result2 := range myecs.Manager.Query(myecs.IsCollide) {
 				if j > i {
 					obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
-					_, okC2 := result2.Components[myecs.Character].(*data.Character)
-					if okO2 && okC2 && !result2.Entity.HasComponent(myecs.Parent) {
+					if okO2 && !result2.Entity.HasComponent(myecs.Parent) {
 						d := obj.HalfWidth + obj2.HalfWidth
 						v := obj.Pos.Sub(obj2.Pos)
 						m := util.Magnitude(v)

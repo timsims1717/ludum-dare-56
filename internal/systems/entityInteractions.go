@@ -12,7 +12,7 @@ func EntityInteractions() {
 		obj, okO := result.Components[myecs.Object].(*object.Object)
 		ch, okC := result.Components[myecs.Character].(*data.Character)
 		if okO && okC {
-			for _, result2 := range myecs.Manager.Query(myecs.IsStaticEnity) {
+			for _, result2 := range myecs.Manager.Query(myecs.IsStaticEntity) {
 				obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
 				hitEntity, okC2 := result2.Components[myecs.Character].(*data.Character)
 				if okO2 && okC2 {

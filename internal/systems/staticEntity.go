@@ -29,6 +29,6 @@ func CreateEntity() {
 }
 
 func PickRandomStaticEntity() *data.StaticEntity {
-	roll := data.LoadedEnities.StaticEntities[data.LoadedEnities.StaticEnityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEnities.StaticEntityPoolTotal)]]
+	roll := data.LoadedEntities.StaticEntities[data.LoadedEntities.StaticEntityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEntities.StaticEntityPoolTotal)]]
 	return roll
 }

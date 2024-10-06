@@ -22,7 +22,7 @@ type Movement int
 
 const (
 	Target = iota
-	TargetNoStop
+	Straight
 	Random
 	Stationary
 	Waiting
@@ -33,9 +33,12 @@ type Character struct {
 	Object            *object.Object
 	Movement          Movement
 	Target            pixel.Vec
+	TargetDist        float64
+	NoStop            bool
 	Sprite            *img.Sprite
 	Horiz             Direction
 	Vert              Direction
+	InRoom            bool
 	Timer             *timing.Timer
 	PickedUp          bool
 	HP                int
@@ -43,14 +46,22 @@ type Character struct {
 	InvinciblityTimer *timing.Timer
 	IsInvincible      bool
 	Damage            int
+	KidParent         *KidParent
+	Kid               *Kid
 }
 
 type Player struct {
 	Held *Character
 }
 
+type Kid struct {
+	DroppedOff bool
+	PickedUp   bool
+}
+
 type KidParent struct {
 	KidsDropped     int
+	Kids            []*Character
 	DropOffComplete bool
 	PickUpComplete  bool
 }

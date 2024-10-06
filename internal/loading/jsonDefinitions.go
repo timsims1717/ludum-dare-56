@@ -11,15 +11,15 @@ func LoadEnities() {
 	}
 	for _, value := range entities.StaticEntityPool {
 		for i := 0; i < value.Weight; i++ {
-			entities.StaticEnityPoolExpanded = append(entities.StaticEnityPoolExpanded, value.Name)
+			entities.StaticEntityPoolExpanded = append(entities.StaticEntityPoolExpanded, value.Name)
 			entities.StaticEntityPoolTotal++
 		}
 	}
 	for _, value := range entities.DynamicEntityPool {
 		for i := 0; i < value.Weight; i++ {
-			entities.DynamicEnityPoolExpanded = append(entities.DynamicEnityPoolExpanded, value.Name)
+			entities.DynamicEntityPoolExpanded = append(entities.DynamicEntityPoolExpanded, value.Name)
 			entities.DynamicEntityPoolTotal++
 		}
 	}
-	data.LoadedEnities = entities
+	data.LoadedEntities = entities
 }

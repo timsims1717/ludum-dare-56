@@ -6,15 +6,15 @@ import (
 	"os"
 )
 
-type EntityDefintions struct {
-	StaticEntities           map[string]*StaticEntity `json:"StaticEntities"`
-	StaticEntityPool         []EntityRoll             `json:"StaticEntityPool"`
-	StaticEnityPoolExpanded  []string
-	StaticEntityPoolTotal    int
-	DynamicEntities          map[string]*DynamicEntity `json:"DynamicEntities"`
-	DynamicEntityPool        []EntityRoll              `json:"DynamicEntityPool"`
-	DynamicEnityPoolExpanded []string
-	DynamicEntityPoolTotal   int
+type EntityDefinitions struct {
+	StaticEntities            map[string]*StaticEntity `json:"StaticEntities"`
+	StaticEntityPool          []EntityRoll             `json:"StaticEntityPool"`
+	StaticEntityPoolExpanded  []string
+	StaticEntityPoolTotal     int
+	DynamicEntities           map[string]*DynamicEntity `json:"DynamicEntities"`
+	DynamicEntityPool         []EntityRoll              `json:"DynamicEntityPool"`
+	DynamicEntityPoolExpanded []string
+	DynamicEntityPoolTotal    int
 }
 
 type StaticEntity struct {
@@ -40,7 +40,7 @@ type DynamicEntity struct {
 	Speed  float64 `json:"speed"`
 }
 
-func LoadEntityDefinitions(path string) (*EntityDefintions, error) {
+func LoadEntityDefinitions(path string) (*EntityDefinitions, error) {
 	errMsg := "Load entity definitions failed"
 	file, err := os.Open(path)
 	if err != nil {
@@ -48,7 +48,7 @@ func LoadEntityDefinitions(path string) (*EntityDefintions, error) {
 	}
 	defer file.Close()
 	decoder := json.NewDecoder(file)
-	var entityDefintions EntityDefintions
+	var entityDefintions EntityDefinitions
 	err = decoder.Decode(&entityDefintions)
 	if err != nil {
 		return nil, errors.Wrap(err, errMsg)
@@ -57,6 +57,6 @@ func LoadEntityDefinitions(path string) (*EntityDefintions, error) {
 }
 
 func PickRandomDynamicEntity() *DynamicEntity {
-	roll := LoadedEnities.DynamicEntities[LoadedEnities.DynamicEnityPoolExpanded[GlobalSeededRandom.Intn(LoadedEnities.DynamicEntityPoolTotal)]]
+	roll := LoadedEntities.DynamicEntities[LoadedEntities.DynamicEntityPoolExpanded[GlobalSeededRandom.Intn(LoadedEntities.DynamicEntityPoolTotal)]]
 	return roll
 }

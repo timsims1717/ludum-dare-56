@@ -30,16 +30,20 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.MainViewInit()
 	systems.UpdateViews()
 	systems.CreateCharacter()
-	systems.CreateEntity()
-	for i := 0; i < 12; i++ {
-		systems.CreateRandomKid()
-	}
+	//systems.CreateEntity()
+	//for i := 0; i < 12; i++ {
+	//	systems.CreateRandomKid()
+	//}
 }
 
 func (s *gameState) Update(win *pixelgl.Window) {
 	debug.AddText("Game State")
 	data.PlayerInput.Update(win, viewport.MainCamera.Mat)
 
+	// game control systems
+	systems.DropOffSystem()
+
+	// entity control systems
 	systems.KidBehaviorSystem()
 	systems.KidParentBehaviorSystem()
 	systems.PlayerMoveSystem()

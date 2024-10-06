@@ -50,7 +50,7 @@
     },
     "Mama Ant": {
       "name": "Mama Ant",
-      "sprite": "ant_parent_test",
+      "sprite": "ant_mom",
       "hp": -1,
       "speed": 45
     },
@@ -88,11 +88,11 @@
   "DynamicEntityPool": [
     {
       "name": "Baby Ant",
-      "weight": 3
+      "weight": 1
     },
     {
       "name": "Baby Deer",
-      "weight": 3
+      "weight": 1
     },
     {
       "name": "Baby Slime",
