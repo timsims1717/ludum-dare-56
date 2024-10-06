@@ -12,3 +12,11 @@ var (
 	Layers       = true
 	DropOffTimer *timing.Timer
 )
+
+func GetRandomX() float64 {
+	return GlobalSeededRandom.Float64()*300. - 150.
+}
+
+func GetRandomY() float64 {
+	return GlobalSeededRandom.Float64()*200. - 100.
+}

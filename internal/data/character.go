@@ -29,17 +29,20 @@ const (
 )
 
 type Character struct {
-	Entity   *ecs.Entity
-	Object   *object.Object
-	Movement Movement
-	Target   pixel.Vec
-	Sprite   *img.Sprite
-	Horiz    Direction
-	Vert     Direction
-	Timer    *timing.Timer
-	PickedUp bool
-	HP       int
-	Speed    float64
+	Entity            *ecs.Entity
+	Object            *object.Object
+	Movement          Movement
+	Target            pixel.Vec
+	Sprite            *img.Sprite
+	Horiz             Direction
+	Vert              Direction
+	Timer             *timing.Timer
+	PickedUp          bool
+	HP                int
+	Speed             float64
+	InvinciblityTimer *timing.Timer
+	IsInvincible      bool
+	Damage            int
 }
 
 type Player struct {

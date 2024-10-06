@@ -33,6 +33,10 @@ const ( // player input
 	InputAction = "action"
 )
 
+const (
+	InvincibilityDuration = 2
+)
+
 var (
 	TitleText          = "LD56"
 	LoadedEnities      = new(EntityDefintions)
