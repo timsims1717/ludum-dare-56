@@ -81,7 +81,7 @@
     },
     "medium": {
       "dangerpool": {
-        "rolls": ,
+        "rolls": 3,
         "pool": [
           {
             "name": "Cactus",

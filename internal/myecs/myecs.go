@@ -41,6 +41,7 @@ var (
 	Collide     = Manager.NewComponent()
 	Immoveable  = Manager.NewComponent()
 	Pushable    = Manager.NewComponent()
+	DrawTarget  = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
 	HasUpdate = ecs.BuildTag(Update)
