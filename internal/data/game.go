@@ -27,9 +27,9 @@ const (
 )
 
 func GetRandomX() float64 {
-	return GlobalSeededRandom.Float64()*300. - 150.
+	return RoomBorder.Center().X + GlobalSeededRandom.Float64()*(RoomBorder.W()-32) - (RoomBorder.W()-32)*0.5
 }
 
 func GetRandomY() float64 {
-	return GlobalSeededRandom.Float64()*200. - 100.
+	return RoomBorder.Center().Y + GlobalSeededRandom.Float64()*(RoomBorder.H()-32) - (RoomBorder.H()-32)*0.5
 }

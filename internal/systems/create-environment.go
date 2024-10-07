@@ -22,13 +22,13 @@ func CreateEntity(PoolType string) {
 	obj := object.New().WithID(entityRoll.Name)
 	obj.SetRect(pixel.R(0., 0., entityRoll.Width, entityRoll.Height))
 	obj.Layer = 1
-	obj.Pos.X = data.GetRandomX()
-	obj.Pos.Y = data.GetRandomY()
+	GenerateValidPosition(obj)
+
 	spr := img.NewSprite(entityRoll.Sprite, data.BatchKeyTest)
 	character := &data.Character{
-		Object: obj,
-		Sprite: spr,
-		Damage: entityRoll.Damage,
+		Object:                obj,
+		Sprite:                spr,
+		StaticEnityProperties: entityRoll.Clone(),
 	}
 	character.Entity = myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
@@ -48,4 +48,13 @@ func CreateEntity(PoolType string) {
 func PickRandomStaticEntity(PoolType string) *data.StaticEntity {
 	roll := data.LoadedEntities.StaticEntities[data.LoadedEntities.ExpandedEntityPools[PoolType][data.GlobalSeededRandom.Intn(data.LoadedEntities.ExpandedEntityTotals[PoolType])]]
 	return roll
+}
+
+func GenerateValidPosition(obj *object.Object) {
+	b := true
+	for b {
+		obj.Pos.X = data.GetRandomX()
+		obj.Pos.Y = data.GetRandomY()
+		b = data.InvalidRect.Moved(data.InvalidPos).Contains(obj.Pos)
+	}
 }
