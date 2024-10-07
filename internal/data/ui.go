@@ -16,3 +16,11 @@ type TextBubble struct {
 	RightObj   *object.Object
 	Right      *ecs.Entity
 }
+
+func (tb *TextBubble) IsHidden() bool {
+	if tb == nil {
+		return true
+	} else {
+		return tb.Text.Hidden
+	}
+}

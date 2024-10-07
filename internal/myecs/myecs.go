@@ -42,6 +42,7 @@ var (
 	Immoveable   = Manager.NewComponent()
 	Pushable     = Manager.NewComponent()
 	StatusEffect = Manager.NewComponent()
+	DrawTarget   = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
 	HasUpdate = ecs.BuildTag(Update)

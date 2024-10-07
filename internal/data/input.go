@@ -13,6 +13,7 @@ var (
 			InputUp:     pxginput.NewJoyless(pixelgl.KeyUp),
 			InputDown:   pxginput.NewJoyless(pixelgl.KeyDown),
 			InputAction: pxginput.NewJoyless(pixelgl.KeySpace),
+			"escape":    pxginput.NewJoyless(pixelgl.KeyEscape),
 		},
 		Mode: pxginput.KeyboardMouse,
 	}

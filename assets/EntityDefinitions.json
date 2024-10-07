@@ -208,7 +208,31 @@
       "name": "Mama Ant",
       "sprite": "ant_mom",
       "hp": -1,
-      "speed": 45
+      "speed": 45,
+      "txtBoxX": 18,
+      "txtBoxY": 44,
+      "parentText": {
+        "dropOffTxt": [
+          "I'll be back\nin a min-ant.",
+          "Keep my princesses\nsafe.",
+          "I love all of\nyou pupae!"
+        ],
+        "pickUpText": [
+          "I've gotta pick up sixteen\nof your siblings, let's go.",
+          "Let's get back\nto the hill."
+        ],
+        "safeText": [
+          "How's your\nfeelers?",
+          "Did you like the aphid\nextract for lunch?"
+        ],
+        "hurtText": [
+          "They're missing\na leg!"
+        ],
+        "deadText": [
+          "Oh my gosh, did a kid with a\nmagnifying glass get them?",
+          "Well, we have\nspares."
+        ]
+      }
     },
     "Baby Slime": {
       "name": "Baby Slime",
@@ -223,7 +247,32 @@
       "name": "Slime Boss",
       "sprite": "slime_boss",
       "hp": -1,
-      "speed": 35
+      "speed": 35,
+      "txtBoxX": 26,
+      "txtBoxY": 16,
+      "parentText": {
+        "dropOffTxt": [
+          "Don't let\nthem split.",
+          "Keep the\nchange.",
+          "I brought Jelly\nBeans for lunch."
+        ],
+        "pickUpText": [
+          "Let's hurry\nit up.",
+          "I gotta pick up some\njelly donuts."
+        ],
+        "safeText": [
+          "You've only got a little\nbit of lunch on you.",
+          "Did you gain\nweight?",
+          "How's my\nlittle glob?"
+        ],
+        "hurtText": [
+          "It looks like you got\na little goo torn off."
+        ],
+        "deadText": [
+          "They've been\nsqueegied!",
+          "You're dead\nmeat, ghost!"
+        ]
+      }
     },
     "Baby Deer": {
       "name": "Baby Deer",
@@ -238,8 +287,60 @@
       "name": "Daddy Deer",
       "sprite": "deer_daddy",
       "hp": -1,
-      "speed": 65
+      "speed": 65,
+      "txtBoxX": 18,
+      "txtBoxY": 44,
+      "parentText": {
+        "dropOffText": [
+          "I love you\ndear!",
+          "Keep my fawn\nsafe, you hear?"
+        ],
+        "pickUpText": [
+          "How was\nmy deary?",
+          "We gotta go, I saw a\nguy wearing orange!"
+        ],
+        "safeText": [
+          "It looks like\nyou had fun!",
+          "I think your antlers\ngrew a little!",
+          "Hey, did you learn\nto count to 4?"
+        ],
+        "hurtText": [
+          "*Gasp* Your antler\nis broken!"
+        ],
+        "deadText": [
+          "He's been\nshot!",
+          "She's been\nshot!"
+        ]
+      }
     }
+  },
+  "defaultText": {
+    "dropOffText": [
+      "See you later\nkiddos!",
+      "Have a good day at this\nfine daycare establishment!",
+      "Watch out\nfor Jerry.",
+      "I'll be back\nafter work."
+    ],
+    "pickUpText": [
+      "How were they\ntoday?",
+      "Okay, kids,\nlet's vamos!",
+      "Hey, I'm in a hurry,\nwhere's my kids?"
+    ],
+    "safeText": [
+      "It looks like\nyou had fun!",
+      "Let's go to\nthe park!"
+    ],
+    "hurtText": [
+      "Oh no, looks like you\ngot a booboo!",
+      "What happened? Was\nit Jerry again?",
+      "This is the third\ntime this week!"
+    ],
+    "deadText": [
+      "My baby!",
+      "He's dead? No!",
+      "She's dead? No!",
+      "You monster!"
+    ]
   },
   "BabyPool": [
     {

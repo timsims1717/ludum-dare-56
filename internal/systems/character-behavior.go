@@ -20,6 +20,15 @@ func KidBehaviorSystem() {
 					if kid.KidParent.KidParent.ParentState == data.PickingUp {
 						if data.MatRect.Moved(data.MatPos).Contains(obj.Pos) {
 							kid.PickedUp = true
+							if ch.TextBubble.IsHidden() {
+								if ch.HP == ch.MaxHP {
+									SetTextBubble(kid.KidParent, kid.KidParent.KidParent.SafeText[data.GlobalSeededRandom.Intn(len(kid.KidParent.KidParent.SafeText))], kid.KidParent.TextBoxXOff, kid.KidParent.TextBoxYOff)
+								} else if ch.HP == 0 {
+									SetTextBubble(kid.KidParent, kid.KidParent.KidParent.DeadText[data.GlobalSeededRandom.Intn(len(kid.KidParent.KidParent.DeadText))], kid.KidParent.TextBoxXOff, kid.KidParent.TextBoxYOff)
+								} else {
+									SetTextBubble(kid.KidParent, kid.KidParent.KidParent.HurtText[data.GlobalSeededRandom.Intn(len(kid.KidParent.KidParent.HurtText))], kid.KidParent.TextBoxXOff, kid.KidParent.TextBoxYOff)
+								}
+							}
 							ch.Target = data.ParentPos
 							ch.Target.X += data.GlobalSeededRandom.Float64()*64. - 32.
 							ch.Target.Y += data.GlobalSeededRandom.Float64() * 64.
@@ -83,8 +92,8 @@ func KidParentBehaviorSystem() {
 				ch.Timer.Update()
 				switch par.ParentState {
 				case data.TimeToDropOff:
-					if ch.TextBubble == nil {
-						CreateTextBubble(ch, "Here you go", 32., 16.)
+					if ch.TextBubble.IsHidden() {
+						SetTextBubble(ch, par.DropOffText[data.GlobalSeededRandom.Intn(len(par.DropOffText))], ch.TextBoxXOff, ch.TextBoxYOff)
 					}
 					dropComplete := true
 					for _, kid := range par.Kids {
@@ -98,9 +107,13 @@ func KidParentBehaviorSystem() {
 						ch.Movement = data.Straight
 						ch.NoStop = true
 						par.ParentState = data.DropOffComplete
+						HideTextBubble(ch)
 					}
 				case data.TimeToPickUp:
 					par.ParentState = data.PickingUp
+					if ch.TextBubble.IsHidden() {
+						SetTextBubble(ch, par.PickUpText[data.GlobalSeededRandom.Intn(len(par.PickUpText))], ch.TextBoxXOff, ch.TextBoxYOff)
+					}
 				case data.PickingUp:
 					pickUpComplete := true
 					for _, kid := range par.Kids {
