@@ -102,15 +102,22 @@ func CreateParent(entity string, kidCount int, pos pixel.Vec) *data.Character {
 	obj.Pos = pos
 	spr := img.NewSprite(parent.Sprite, data.BatchKeyTest).WithOffset(pixel.V(0., 16.))
 	character := &data.Character{
-		Object:   obj,
-		Movement: data.Stationary,
-		Target:   pixel.ZV,
-		Sprite:   spr,
-		HP:       parent.HP,
-		MaxHP:    parent.HP,
-		Speed:    parent.Speed,
+		Object:      obj,
+		Movement:    data.Stationary,
+		Target:      pixel.ZV,
+		Sprite:      spr,
+		HP:          parent.HP,
+		MaxHP:       parent.HP,
+		Speed:       parent.Speed,
+		TextBoxYOff: parent.TxtBoxY,
+		TextBoxXOff: parent.TxtBoxX,
 		KidParent: &data.KidParent{
 			KidsDropped: kidCount,
+			DropOffText: parent.ParentText.DropOffText,
+			PickUpText:  parent.ParentText.PickUpText,
+			SafeText:    parent.ParentText.SafeText,
+			HurtText:    parent.ParentText.HurtText,
+			DeadText:    parent.ParentText.DeadText,
 		},
 	}
 	e := myecs.Manager.NewEntity().

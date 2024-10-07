@@ -17,6 +17,7 @@ type EntityDefinitions struct {
 	DifficultyPool       map[string]map[string]*DifficultyPool `json:"DifficultyPool"`
 	DynamicEntities      map[string]*DynamicEntity             `json:"DynamicEntities"`
 	BabyPool             []EntityRoll                          `json:"BabyPool"`
+	DefaultText          ParentText                            `json:"defaultText"`
 	ExpandedEntityPools  map[string][]string
 	ExpandedEntityTotals map[string]int
 }
@@ -44,13 +45,24 @@ type EntityRoll struct {
 }
 
 type DynamicEntity struct {
-	Name   string  `json:"key"`
-	Parent string  `json:"parent"`
-	Sprite string  `json:"sprite"`
-	HP     int     `json:"hp"`
-	Min    int     `json:"min"`
-	Max    int     `json:"max"`
-	Speed  float64 `json:"speed"`
+	Name       string     `json:"key"`
+	Parent     string     `json:"parent"`
+	Sprite     string     `json:"sprite"`
+	HP         int        `json:"hp"`
+	Min        int        `json:"min"`
+	Max        int        `json:"max"`
+	Speed      float64    `json:"speed"`
+	TxtBoxY    float64    `json:"txtBoxY"`
+	TxtBoxX    float64    `json:"txtBoxX"`
+	ParentText ParentText `json:"parentText"`
+}
+
+type ParentText struct {
+	DropOffText []string `json:"dropOffText"`
+	PickUpText  []string `json:"pickUpText"`
+	SafeText    []string `json:"safeText"`
+	HurtText    []string `json:"hurtText"`
+	DeadText    []string `json:"deadText"`
 }
 
 func LoadEntityDefinitions(path string) (*EntityDefinitions, error) {

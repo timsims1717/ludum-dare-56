@@ -4,7 +4,7 @@ import (
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 )
 
-func LoadEnities() {
+func LoadEntities() {
 	entities, err := data.LoadEntityDefinitions("assets/EntityDefinitions.json")
 	if err != nil {
 		panic(err)
@@ -33,6 +33,15 @@ func LoadEnities() {
 		for i := 0; i < value.Weight; i++ {
 			entities.ExpandedEntityPools[data.ToyPool] = append(entities.ExpandedEntityPools[data.ToyPool], value.Name)
 			entities.ExpandedEntityTotals[data.ToyPool]++
+		}
+	}
+	for _, e := range entities.DynamicEntities {
+		if e.Parent == "" {
+			e.ParentText.DropOffText = append(e.ParentText.DropOffText, entities.DefaultText.DropOffText...)
+			e.ParentText.PickUpText = append(e.ParentText.PickUpText, entities.DefaultText.PickUpText...)
+			e.ParentText.SafeText = append(e.ParentText.SafeText, entities.DefaultText.SafeText...)
+			e.ParentText.HurtText = append(e.ParentText.HurtText, entities.DefaultText.HurtText...)
+			e.ParentText.DeadText = append(e.ParentText.DeadText, entities.DefaultText.DeadText...)
 		}
 	}
 	data.LoadedEntities = entities

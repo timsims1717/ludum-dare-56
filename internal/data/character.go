@@ -50,6 +50,8 @@ type Character struct {
 	KidParent         *KidParent
 	Kid               *Kid
 	TextBubble        *TextBubble
+	TextBoxYOff       float64
+	TextBoxXOff       float64
 }
 
 type Player struct {
@@ -66,6 +68,11 @@ type KidParent struct {
 	KidsDropped int
 	Kids        []*Character
 	ParentState ParentState
+	DropOffText []string
+	PickUpText  []string
+	SafeText    []string
+	HurtText    []string
+	DeadText    []string
 }
 
 type ParentState int
