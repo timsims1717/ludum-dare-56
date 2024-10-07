@@ -7,7 +7,7 @@ import (
 )
 
 func InitGameplay() {
-	CreateDropOffList(len(data.LoadedEntities.DynamicEntityPool))
+	CreateDropOffList(len(data.LoadedEntities.BabyPool))
 	data.TheGamePhase = data.ParentDropOff
 	data.ParentTimer = nil
 
@@ -21,7 +21,7 @@ func CreateDropOffList(count int) {
 	dropOffInts := util.RandomSample(count, a, data.GlobalSeededRandom)
 	data.DropOffList = []string{}
 	for _, i := range dropOffInts {
-		data.DropOffList = append(data.DropOffList, data.LoadedEntities.DynamicEntityPoolExpanded[i])
+		data.DropOffList = append(data.DropOffList, data.LoadedEntities.BabyPool[i].Name)
 	}
 	data.ParentIndex = 0
 }

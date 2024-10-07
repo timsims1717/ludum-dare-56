@@ -9,13 +9,16 @@ import (
 )
 
 func PopulateLandscape() {
-	for i := 0; i < data.LoadedEntities.DifficultyPool[data.Difficulty].Rolls; i++ {
-		CreateEntity()
+	for i := 0; i < data.LoadedEntities.DifficultyPool[data.Difficulty][data.DangerPool].Rolls; i++ {
+		CreateEntity(data.DangerPool)
+	}
+	for i := 0; i < data.LoadedEntities.DifficultyPool[data.Difficulty][data.ToyPool].Rolls; i++ {
+		CreateEntity(data.ToyPool)
 	}
 }
 
-func CreateEntity() {
-	entityRoll := PickRandomStaticEntity()
+func CreateEntity(PoolType string) {
+	entityRoll := PickRandomStaticEntity(PoolType)
 	obj := object.New().WithID(entityRoll.Name)
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Layer = 1
@@ -34,7 +37,7 @@ func CreateEntity() {
 		AddComponent(myecs.StaticEnity, character)
 }
 
-func PickRandomStaticEntity() *data.StaticEntity {
-	roll := data.LoadedEntities.StaticEntities[data.LoadedEntities.StaticEntityPoolExpanded[data.GlobalSeededRandom.Intn(data.LoadedEntities.StaticEntityPoolTotal)]]
+func PickRandomStaticEntity(PoolType string) *data.StaticEntity {
+	roll := data.LoadedEntities.StaticEntities[data.LoadedEntities.ExpandedEntityPools[PoolType][data.GlobalSeededRandom.Intn(data.LoadedEntities.ExpandedEntityTotals[PoolType])]]
 	return roll
 }

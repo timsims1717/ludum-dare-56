@@ -21,59 +21,99 @@
       "damage": 1,
       "damagetype": "lightning",
       "IsCollidable": true
+    },
+    "Stacking Toy": {
+      "name": "Stacking Toy",
+      "sprite": "stacking_toy_sprite",
+      "damage": 0,
+      "damagetype": "none",
+      "IsCollidable": true
     }
   },
   "difficultypool": {
     "easy": {
-      "rolls": 1,
-      "pool": [
-        {
-          "name": "Cactus",
-          "weight": 1
-        },
-        {
-          "name": "Bear Trap",
-          "weight": 1
-        },
-        {
-          "name": "Aggressive Vine",
-          "weight": 1
-        }
-      ]
+      "dangerpool": {
+        "rolls": 1,
+        "pool": [
+          {
+            "name": "Cactus",
+            "weight": 1
+          },
+          {
+            "name": "Bear Trap",
+            "weight": 1
+          },
+          {
+            "name": "Aggressive Vine",
+            "weight": 1
+          }
+        ]
+      },
+      "toypool": {
+        "rolls": 2,
+        "pool": [
+          {
+            "name": "Stacking Toy",
+            "weight": 1
+          }
+        ]
+      }
     },
-    "medium":{
-      "rolls": 2,
-      "pool": [
-        {
-          "name": "Cactus",
-          "weight": 1
-        },
-        {
-          "name": "Bear Trap",
-          "weight": 1
-        },
-        {
-          "name": "Aggressive Vine",
-          "weight": 1
-        }
-      ]
+    "medium": {
+      "dangerpool": {
+        "rolls": 2,
+        "pool": [
+          {
+            "name": "Cactus",
+            "weight": 1
+          },
+          {
+            "name": "Bear Trap",
+            "weight": 1
+          },
+          {
+            "name": "Aggressive Vine",
+            "weight": 1
+          }
+        ]
+      },
+      "toypool": {
+        "rolls": 2,
+        "pool": [
+          {
+            "name": "Stacking Toy",
+            "weight": 1
+          }
+        ]
+      }
     },
     "hard": {
-      "rolls": 3,
-      "pool": [
-        {
-          "name": "Cactus",
-          "weight": 1
-        },
-        {
-          "name": "Bear Trap",
-          "weight": 1
-        },
-        {
-          "name": "Aggressive Vine",
-          "weight": 1
-        }
-      ]
+      "dangerpool": {
+        "rolls": 3,
+        "pool": [
+          {
+            "name": "Cactus",
+            "weight": 1
+          },
+          {
+            "name": "Bear Trap",
+            "weight": 1
+          },
+          {
+            "name": "Aggressive Vine",
+            "weight": 1
+          }
+        ]
+      },
+      "toypool": {
+        "rolls": 2,
+        "pool": [
+          {
+            "name": "Stacking Toy",
+            "weight": 1
+          }
+        ]
+      }
     }
   },
   "DynamicEntities":
@@ -124,7 +164,7 @@
       "speed": 65
     }
   },
-  "DynamicEntityPool": [
+  "BabyPool": [
     {
       "name": "Baby Ant",
       "weight": 1

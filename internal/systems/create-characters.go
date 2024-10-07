@@ -30,7 +30,7 @@ func CreateCharacter() {
 }
 
 func CreateRandomKid() *data.Character {
-	entity := data.PickRandomDynamicEntity()
+	entity := data.PickRandomDynamicEntity(data.BabyPool)
 	obj := object.New().WithID(entity.Name)
 	obj.Layer = 1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
