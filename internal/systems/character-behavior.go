@@ -100,7 +100,7 @@ func KidParentBehaviorSystem() {
 				case data.PickingUp:
 					pickUpComplete := true
 					for _, kid := range par.Kids {
-						if !kid.Kid.PickedUp {
+						if !kid.Kid.PickedUp || kid.HP == 0 {
 							pickUpComplete = false
 							break
 						}
