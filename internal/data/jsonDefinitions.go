@@ -68,7 +68,7 @@ type EntityRoll struct {
 }
 
 type DynamicEntity struct {
-	Name       string     `json:"key"`
+	Name       string     `json:"name"`
 	Parent     string     `json:"parent"`
 	Sprite     string     `json:"sprite"`
 	HP         int        `json:"hp"`
