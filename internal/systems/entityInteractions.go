@@ -16,7 +16,7 @@ func EntityInteractions() {
 				obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
 				hitEntity, okC2 := result2.Components[myecs.Character].(*data.Character)
 				if okO2 && okC2 {
-					if obj.Rect.Moved(obj.Pos).Intersects(obj2.Rect.Moved(obj2.Pos)) && !ch.IsInvincible && ch.HP >= 0 {
+					if obj.Rect.Moved(obj.Pos).Intersects(obj2.Rect.Moved(obj2.Pos)) && !ch.IsInvincible && ch.HP >= 0 && !result.Entity.HasComponent(myecs.Parent) {
 						ch.HP = ch.HP - hitEntity.Damage
 						ch.Entity.AddComponent(myecs.Invincible, struct{}{})
 						ch.InvinciblityTimer = timing.New(data.InvincibilityDuration)
