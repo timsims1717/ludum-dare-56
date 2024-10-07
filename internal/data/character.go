@@ -49,6 +49,7 @@ type Character struct {
 	Damage            int
 	KidParent         *KidParent
 	Kid               *Kid
+	TextBubble        *TextBubble
 }
 
 type Player struct {

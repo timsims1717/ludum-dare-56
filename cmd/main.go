@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/gopxl/pixel"
 	"github.com/gopxl/pixel/pixelgl"
+	"github.com/gopxl/pixel/text"
+	"github.com/timsims1717/ludum-dare-56/embed"
 	"github.com/timsims1717/ludum-dare-56/internal/data"
 	"github.com/timsims1717/ludum-dare-56/internal/loading"
 	"github.com/timsims1717/ludum-dare-56/internal/states"
@@ -12,6 +14,7 @@ import (
 	"github.com/timsims1717/pixel-go-utils/options"
 	"github.com/timsims1717/pixel-go-utils/state"
 	"github.com/timsims1717/pixel-go-utils/timing"
+	"github.com/timsims1717/pixel-go-utils/typeface"
 	"github.com/timsims1717/pixel-go-utils/viewport"
 	"golang.org/x/image/colornames"
 )
@@ -44,8 +47,8 @@ func run() {
 	loading.LoadSprites()
 	loading.LoadEnities()
 
-	//mainFont, err := typeface.LoadTTF("Jive_Talking.ttf", 128.)
-	//typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)
+	mainFont, err := typeface.LoadBytes(embed.JiveTalking, 128.)
+	typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)
 
 	debug.Initialize(&viewport.MainCamera.PostCamPos)
 	debug.ShowText = false
