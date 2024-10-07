@@ -8,7 +8,9 @@
       "damagetype": "piercing",
       "IsCollidable": true,
       "IsPickupable": false,
-      "IsPushable": false
+      "IsPushable": false,
+      "width": 24,
+      "height": 28
     },
     "Bear Trap": {
       "name": "Bear Trap",
@@ -17,7 +19,9 @@
       "damagetype": "bludgeoning",
       "IsCollidable": true,
       "IsPickupable": true,
-      "IsPushable": false
+      "IsPushable": false,
+      "width": 16,
+      "height": 16
     },
     "Aggressive Vine": {
       "name": "Aggressive Vine",
@@ -26,7 +30,9 @@
       "damagetype": "lightning",
       "IsCollidable": true,
       "IsPickupable": false,
-      "IsPushable": true
+      "IsPushable": true,
+      "width": 28,
+      "height": 20
     },
     "Stacking Toy": {
       "name": "Stacking Toy",
@@ -35,7 +41,9 @@
       "damagetype": "none",
       "IsCollidable": true,
       "IsPickupable": true,
-      "IsPushable": true
+      "IsPushable": true,
+      "width": 24,
+      "height": 32
     }
   },
   "difficultypool": {
