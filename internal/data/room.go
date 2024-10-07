@@ -27,6 +27,8 @@ var (
 	MatPos        = pixel.V(0., 132.)
 	MatRect       = pixel.R(-24., -16., 24., 16.)
 	RoomBottom    = -220.
+	InvalidRect   = pixel.R(-128., -48., 128., 48.)
+	InvalidPos    = pixel.V(0., 100.)
 
 	DoorEntity *ecs.Entity
 )

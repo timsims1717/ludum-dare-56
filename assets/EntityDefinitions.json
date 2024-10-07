@@ -10,7 +10,8 @@
       "IsPickupable": false,
       "IsPushable": false,
       "width": 24,
-      "height": 28
+      "height": 28,
+      "uses": -1
     },
     "Bear Trap": {
       "name": "Bear Trap",
@@ -21,7 +22,8 @@
       "IsPickupable": true,
       "IsPushable": false,
       "width": 16,
-      "height": 16
+      "height": 16,
+      "uses": 1
     },
     "Aggressive Vine": {
       "name": "Aggressive Vine",
@@ -32,7 +34,8 @@
       "IsPickupable": false,
       "IsPushable": true,
       "width": 28,
-      "height": 20
+      "height": 20,
+      "uses": -1
     },
     "Stacking Toy": {
       "name": "Stacking Toy",
@@ -43,7 +46,8 @@
       "IsPickupable": true,
       "IsPushable": true,
       "width": 24,
-      "height": 32
+      "height": 32,
+      "uses": -1
     }
   },
   "difficultypool": {
@@ -77,11 +81,11 @@
     },
     "medium": {
       "dangerpool": {
-        "rolls": 2,
+        "rolls": ,
         "pool": [
           {
             "name": "Cactus",
-            "weight": 1
+            "weight": 3
           },
           {
             "name": "Bear Trap",

@@ -29,29 +29,29 @@ const (
 )
 
 type Character struct {
-	Entity            *ecs.Entity
-	Object            *object.Object
-	Movement          Movement
-	Target            pixel.Vec
-	TargetDist        float64
-	NoStop            bool
-	Sprite            *img.Sprite
-	Horiz             Direction
-	Vert              Direction
-	InRoom            bool
-	Timer             *timing.Timer
-	PickedUp          bool
-	HP                int
-	MaxHP             int
-	Speed             float64
-	InvinciblityTimer *timing.Timer
-	IsInvincible      bool
-	Damage            int
-	KidParent         *KidParent
-	Kid               *Kid
-	TextBubble        *TextBubble
-	TextBoxYOff       float64
-	TextBoxXOff       float64
+	Entity                *ecs.Entity
+	Object                *object.Object
+	Movement              Movement
+	Target                pixel.Vec
+	TargetDist            float64
+	NoStop                bool
+	Sprite                *img.Sprite
+	Horiz                 Direction
+	Vert                  Direction
+	InRoom                bool
+	Timer                 *timing.Timer
+	PickedUp              bool
+	HP                    int
+	MaxHP                 int
+	Speed                 float64
+	InvinciblityTimer     *timing.Timer
+	IsInvincible          bool
+	KidParent             *KidParent
+	Kid                   *Kid
+	TextBubble            *TextBubble
+	TextBoxYOff           float64
+	TextBoxXOff           float64
+	StaticEnityProperties StaticEntity
 }
 
 type Player struct {

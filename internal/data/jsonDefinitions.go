@@ -32,6 +32,22 @@ type StaticEntity struct {
 	IsPushable   bool    `json:"IsPushable"`
 	Width        float64 `json:"width"`
 	Height       float64 `json:"height"`
+	Uses         int     `json:"uses"`
+}
+
+func (s StaticEntity) Clone() StaticEntity {
+	return StaticEntity{
+		Name:         s.Name,
+		Sprite:       s.Sprite,
+		Damagetype:   s.Damagetype,
+		IsCollidable: s.IsCollidable,
+		IsPickupable: s.IsPickupable,
+		IsPushable:   s.IsPushable,
+		Width:        s.Width,
+		Height:       s.Height,
+		Uses:         s.Uses,
+		Damage:       s.Damage,
+	}
 }
 
 type DifficultyPool struct {
