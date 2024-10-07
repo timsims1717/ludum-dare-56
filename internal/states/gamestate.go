@@ -60,6 +60,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.RoomBorderSystem()
 	systems.EntityInteractions()
 	systems.UpdateInvincibility()
+	systems.HealthBarSystem()
 
 	systems.AnimationSystem()
 	systems.ParentSystem()
@@ -73,9 +74,11 @@ func (s *gameState) Update(win *pixelgl.Window) {
 
 func (s *gameState) Draw(win *pixelgl.Window) {
 	data.MainCanvas.Canvas.Clear(pixel.RGBA{})
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, -2, false)
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, -1, data.Layers)
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 0, false)
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1, data.Layers)
-	systems.DrawLayerSystem(data.MainCanvas.Canvas, 2, false)
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, 3, data.Layers)
 	img.Clear()
 	data.MainCanvas.Draw(win)
 

@@ -42,6 +42,7 @@ type Character struct {
 	Timer             *timing.Timer
 	PickedUp          bool
 	HP                int
+	MaxHP             int
 	Speed             float64
 	InvinciblityTimer *timing.Timer
 	IsInvincible      bool

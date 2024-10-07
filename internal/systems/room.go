@@ -26,7 +26,7 @@ func BuildRoom() {
 			halfLen := float64(h2-h1) * 0.5
 			yPos := data.RoomBottom + float64(h1)*data.WoodWidth + data.WoodWidth*halfLen
 			woodObj := object.New()
-			woodObj.Layer = 0
+			woodObj.Layer = -2
 			woodObj.Pos = pixel.V(xPos, yPos)
 
 			r := data.GlobalSeededRandom.Intn(8)
@@ -51,7 +51,7 @@ func BuildRoom() {
 		for y := data.RugBottomIndex; y < data.RugTopIndex; y++ {
 			yPos := data.RugWidth * float64(y)
 			rugObj := object.New()
-			rugObj.Layer = 0
+			rugObj.Layer = -2
 			rugObj.Pos = pixel.V(xPos, yPos)
 
 			sprV := "m"
@@ -98,7 +98,7 @@ func BuildRoom() {
 			yPos := data.RoomBottom + float64(data.WoodHeight+y)*data.WoodWidth
 			sprKey := ""
 			wallObj := object.New()
-			wallObj.Layer = 2
+			wallObj.Layer = 0
 			if x < -2 || x > 2 {
 				switch y {
 				case 0:
@@ -123,7 +123,7 @@ func BuildRoom() {
 				sprKey = "back_wall"
 			} else {
 				sprKey = "sidewalk"
-				wallObj.Layer = 0
+				wallObj.Layer = -2
 			}
 			if x < -1 {
 				wallObj.Flip = true
@@ -136,14 +136,14 @@ func BuildRoom() {
 	}
 	// welcome mat
 	matObj := object.New()
-	matObj.Layer = 0
+	matObj.Layer = -2
 	matObj.Pos = data.MatPos
 	myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, matObj).
 		AddComponent(myecs.Drawable, img.NewSprite(data.SpriteKeyMat, data.BatchKeyTest))
 	// doorway
 	doorObj := object.New()
-	doorObj.Layer = 1
+	doorObj.Layer = 0
 	doorObj.Pos = data.DoorPos
 	data.DoorEntity = myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, doorObj).

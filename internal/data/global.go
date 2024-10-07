@@ -16,6 +16,8 @@ const ( // sprites and batches
 	SpriteKeyMat        = "mat"
 	SpriteKeyDoorClosed = "door_closed"
 	SpriteKeyDoorOpen   = "door_open"
+	SpriteHeartFull     = "heart_full"
+	SpriteHeartEmpty    = "heart_empty"
 )
 
 var (

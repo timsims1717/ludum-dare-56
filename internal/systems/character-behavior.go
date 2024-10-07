@@ -26,6 +26,7 @@ func KidBehaviorSystem() {
 							ch.Movement = data.Straight
 							ch.NoStop = true
 							ch.InRoom = false
+							obj.Layer = -1
 							result.Entity.RemoveComponent(myecs.Collide)
 						}
 					}
@@ -41,6 +42,7 @@ func KidBehaviorSystem() {
 			} else if !kid.DroppedOff {
 				if ch.Movement == data.Stationary {
 					ch.InRoom = true
+					obj.Layer = 1
 					ch.NoStop = false
 					kid.DroppedOff = true
 					ChangeKidMovement(ch, obj)

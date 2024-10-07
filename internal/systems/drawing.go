@@ -111,7 +111,7 @@ func DrawLayerSystem(target pixel.Target, layer int, sortByY bool) {
 			b := results[j]
 			aO := a.Components[myecs.Object].(*object.Object)
 			bO := b.Components[myecs.Object].(*object.Object)
-			return aO.Pos.Y > bO.Pos.Y
+			return aO.Pos.Y-aO.Offset.Y > bO.Pos.Y-bO.Offset.Y
 		})
 	}
 	for _, result := range results {

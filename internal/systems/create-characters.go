@@ -17,6 +17,8 @@ func CreateCharacter() {
 		Object: obj,
 		Sprite: spr,
 		InRoom: true,
+		HP:     -1,
+		MaxHP:  -1,
 	}
 	player := &data.Player{}
 	e := myecs.Manager.NewEntity().
@@ -44,6 +46,7 @@ func CreateRandomKid() *data.Character {
 		TargetDist: 16.,
 		Sprite:     spr,
 		HP:         entity.HP,
+		MaxHP:      entity.HP,
 		Speed:      entity.Speed,
 		Kid:        &data.Kid{},
 	}
@@ -62,7 +65,7 @@ func CreateRandomKid() *data.Character {
 
 func CreateKid(entity *data.DynamicEntity, pos pixel.Vec) *data.Character {
 	obj := object.New().WithID(entity.Name)
-	obj.Layer = 1
+	obj.Layer = -1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos = pos
 	spr := img.NewSprite(entity.Sprite, data.BatchKeyTest)
@@ -73,6 +76,7 @@ func CreateKid(entity *data.DynamicEntity, pos pixel.Vec) *data.Character {
 		TargetDist: 16.,
 		Sprite:     spr,
 		HP:         entity.HP,
+		MaxHP:      entity.HP,
 		Speed:      entity.Speed,
 		Kid:        &data.Kid{},
 	}
@@ -92,7 +96,7 @@ func CreateKid(entity *data.DynamicEntity, pos pixel.Vec) *data.Character {
 func CreateParent(entity string, kidCount int, pos pixel.Vec) *data.Character {
 	parent := data.LoadedEntities.DynamicEntities[entity]
 	obj := object.New().WithID(parent.Name)
-	obj.Layer = 1
+	obj.Layer = -1
 	obj.SetRect(pixel.R(0., 0., 32., 32.))
 	obj.Pos = pos
 	spr := img.NewSprite(parent.Sprite, data.BatchKeyTest).WithOffset(pixel.V(0., 16.))
@@ -102,6 +106,7 @@ func CreateParent(entity string, kidCount int, pos pixel.Vec) *data.Character {
 		Target:   pixel.ZV,
 		Sprite:   spr,
 		HP:       parent.HP,
+		MaxHP:    parent.HP,
 		Speed:    parent.Speed,
 		KidParent: &data.KidParent{
 			KidsDropped: kidCount,
