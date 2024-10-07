@@ -40,6 +40,7 @@ var (
 	TitleText          = "LD56"
 	LoadedEntities     = new(EntityDefinitions)
 	GlobalSeededRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
+	Difficulty         = "medium"
 )
 
 func RandomTitle() string {

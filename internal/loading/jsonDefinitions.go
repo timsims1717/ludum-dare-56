@@ -9,16 +9,30 @@ func LoadEnities() {
 	if err != nil {
 		panic(err)
 	}
-	for _, value := range entities.StaticEntityPool {
+	entities.ExpandedEntityPools = make(map[string][]string)
+	entities.ExpandedEntityTotals = make(map[string]int)
+	entities.ExpandedEntityPools[data.DangerPool] = []string{}
+	entities.ExpandedEntityPools[data.BabyPool] = []string{}
+	entities.ExpandedEntityPools[data.ToyPool] = []string{}
+	entities.ExpandedEntityTotals[data.DangerPool] = 0
+	entities.ExpandedEntityTotals[data.BabyPool] = 0
+	entities.ExpandedEntityTotals[data.ToyPool] = 0
+	for _, value := range entities.DifficultyPool[data.Difficulty][data.DangerPool].EntityPool {
 		for i := 0; i < value.Weight; i++ {
-			entities.StaticEntityPoolExpanded = append(entities.StaticEntityPoolExpanded, value.Name)
-			entities.StaticEntityPoolTotal++
+			entities.ExpandedEntityPools[data.DangerPool] = append(entities.ExpandedEntityPools[data.DangerPool], value.Name)
+			entities.ExpandedEntityTotals[data.DangerPool]++
 		}
 	}
-	for _, value := range entities.DynamicEntityPool {
+	for _, value := range entities.BabyPool {
 		for i := 0; i < value.Weight; i++ {
-			entities.DynamicEntityPoolExpanded = append(entities.DynamicEntityPoolExpanded, value.Name)
-			entities.DynamicEntityPoolTotal++
+			entities.ExpandedEntityPools[data.BabyPool] = append(entities.ExpandedEntityPools[data.BabyPool], value.Name)
+			entities.ExpandedEntityTotals[data.BabyPool]++
+		}
+	}
+	for _, value := range entities.DifficultyPool[data.Difficulty][data.ToyPool].EntityPool {
+		for i := 0; i < value.Weight; i++ {
+			entities.ExpandedEntityPools[data.ToyPool] = append(entities.ExpandedEntityPools[data.ToyPool], value.Name)
+			entities.ExpandedEntityTotals[data.ToyPool]++
 		}
 	}
 	data.LoadedEntities = entities

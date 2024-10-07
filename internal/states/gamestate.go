@@ -32,6 +32,7 @@ func (s *gameState) Load(win *pixelgl.Window) {
 	systems.UpdateViews()
 	systems.CreateCharacter()
 	systems.InitGameplay()
+	systems.PopulateLandscape()
 }
 
 func (s *gameState) Update(win *pixelgl.Window) {

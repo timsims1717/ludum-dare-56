@@ -6,15 +6,19 @@ import (
 	"os"
 )
 
+const (
+	DangerPool = "dangerpool"
+	ToyPool    = "toypool"
+	BabyPool   = "babypool"
+)
+
 type EntityDefinitions struct {
-	StaticEntities            map[string]*StaticEntity `json:"StaticEntities"`
-	StaticEntityPool          []EntityRoll             `json:"StaticEntityPool"`
-	StaticEntityPoolExpanded  []string
-	StaticEntityPoolTotal     int
-	DynamicEntities           map[string]*DynamicEntity `json:"DynamicEntities"`
-	DynamicEntityPool         []EntityRoll              `json:"DynamicEntityPool"`
-	DynamicEntityPoolExpanded []string
-	DynamicEntityPoolTotal    int
+	StaticEntities       map[string]*StaticEntity              `json:"StaticEntities"`
+	DifficultyPool       map[string]map[string]*DifficultyPool `json:"DifficultyPool"`
+	DynamicEntities      map[string]*DynamicEntity             `json:"DynamicEntities"`
+	BabyPool             []EntityRoll                          `json:"BabyPool"`
+	ExpandedEntityPools  map[string][]string
+	ExpandedEntityTotals map[string]int
 }
 
 type StaticEntity struct {
@@ -23,6 +27,11 @@ type StaticEntity struct {
 	Damage       int    `json:"damage"`
 	Damagetype   string `json:"damagetype"`
 	IsCollidable bool   `json:"IsCollidable"`
+}
+
+type DifficultyPool struct {
+	Rolls      int          `json:"rolls"`
+	EntityPool []EntityRoll `json:"pool"`
 }
 
 type EntityRoll struct {
@@ -56,7 +65,7 @@ func LoadEntityDefinitions(path string) (*EntityDefinitions, error) {
 	return &entityDefintions, nil
 }
 
-func PickRandomDynamicEntity() *DynamicEntity {
-	roll := LoadedEntities.DynamicEntities[LoadedEntities.DynamicEntityPoolExpanded[GlobalSeededRandom.Intn(LoadedEntities.DynamicEntityPoolTotal)]]
+func PickRandomDynamicEntity(PoolType string) *DynamicEntity {
+	roll := LoadedEntities.DynamicEntities[LoadedEntities.ExpandedEntityPools[PoolType][GlobalSeededRandom.Intn(LoadedEntities.ExpandedEntityTotals[PoolType])]]
 	return roll
 }
