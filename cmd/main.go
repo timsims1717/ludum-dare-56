@@ -46,6 +46,7 @@ func run() {
 
 	loading.LoadSprites()
 	loading.LoadEnities()
+	loading.LoadStatuses()
 
 	mainFont, err := typeface.LoadBytes(embed.JiveTalking, 128.)
 	typeface.Atlases["main"] = text.NewAtlas(mainFont, text.ASCII)

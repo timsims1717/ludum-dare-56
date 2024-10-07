@@ -1,0 +1,11 @@
+{
+  "StatusDefinitions": {
+    "SpeedBoost": {
+      "Name": "SpeedBoost",
+      "Modifies": "Speed",
+      "AugmentationType": "Multiplies",
+      "AugmentationFactor": 1.5,
+      "Duration": 2
+    }
+}
+}

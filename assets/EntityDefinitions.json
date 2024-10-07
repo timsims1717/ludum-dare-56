@@ -11,7 +11,9 @@
       "IsPushable": false,
       "width": 24,
       "height": 28,
-      "uses": -1
+      "uses": -1,
+      "zlevel": 1,
+      "hasStatusEffect": false
     },
     "Bear Trap": {
       "name": "Bear Trap",
@@ -23,7 +25,9 @@
       "IsPushable": false,
       "width": 16,
       "height": 16,
-      "uses": 1
+      "uses": 1,
+      "zlevel": 1,
+      "hasStatusEffect": false
     },
     "Aggressive Vine": {
       "name": "Aggressive Vine",
@@ -35,7 +39,9 @@
       "IsPushable": true,
       "width": 28,
       "height": 20,
-      "uses": -1
+      "uses": -1,
+      "zlevel": 1,
+      "hasStatusEffect": false
     },
     "Stacking Toy": {
       "name": "Stacking Toy",
@@ -47,41 +53,44 @@
       "IsPushable": true,
       "width": 24,
       "height": 32,
-      "uses": -1
+      "uses": -1,
+      "zlevel": 1,
+      "hasStatusEffect": false
+    },
+    "Dirt": {
+      "name": "Dirt",
+      "sprite": "dirt_sprite",
+      "damage": 0,
+      "damagetype": "none",
+      "IsCollidable": false,
+      "IsPickupable": false,
+      "IsPushable": false,
+      "width": 0,
+      "height": 0,
+      "uses": -1,
+      "zlevel": 0,
+      "hasStatusEffect": false
+    },
+    "Candy": {
+      "name": "Candy",
+      "sprite": "candy_sprite",
+      "damage": 0,
+      "damagetype": "none",
+      "IsCollidable": true,
+      "IsPickupable": false,
+      "IsPushable": false,
+      "width": 0,
+      "height": 0,
+      "uses": 1,
+      "zlevel": 1,
+      "hasStatusEffect": true,
+      "statusEffect": "SpeedBoost"
     }
   },
   "difficultypool": {
     "easy": {
       "dangerpool": {
-        "rolls": 1,
-        "pool": [
-          {
-            "name": "Cactus",
-            "weight": 1
-          },
-          {
-            "name": "Bear Trap",
-            "weight": 1
-          },
-          {
-            "name": "Aggressive Vine",
-            "weight": 1
-          }
-        ]
-      },
-      "toypool": {
         "rolls": 2,
-        "pool": [
-          {
-            "name": "Stacking Toy",
-            "weight": 1
-          }
-        ]
-      }
-    },
-    "medium": {
-      "dangerpool": {
-        "rolls": ,
         "pool": [
           {
             "name": "Cactus",
@@ -98,10 +107,54 @@
         ]
       },
       "toypool": {
-        "rolls": 2,
+        "rolls": 10,
         "pool": [
           {
             "name": "Stacking Toy",
+            "weight": 2
+          },
+          {
+            "name": "Dirt",
+            "weight": 7
+          },
+          {
+            "name": "Candy",
+            "weight": 1
+          }
+        ]
+      }
+    },
+    "medium": {
+      "dangerpool": {
+        "rolls": 4,
+        "pool": [
+          {
+            "name": "Cactus",
+            "weight": 3
+          },
+          {
+            "name": "Bear Trap",
+            "weight": 1
+          },
+          {
+            "name": "Aggressive Vine",
+            "weight": 1
+          }
+        ]
+      },
+      "toypool":  {
+        "rolls": 15,
+        "pool": [
+          {
+            "name": "Stacking Toy",
+            "weight": 2
+          },
+          {
+            "name": "Dirt",
+            "weight": 7
+          },
+          {
+            "name": "Candy",
             "weight": 1
           }
         ]
@@ -125,12 +178,16 @@
           }
         ]
       },
-      "toypool": {
-        "rolls": 2,
+      "toypool":  {
+        "rolls": 7,
         "pool": [
           {
             "name": "Stacking Toy",
-            "weight": 1
+            "weight": 2
+          },
+          {
+            "name": "Dirt",
+            "weight": 5
           }
         ]
       }

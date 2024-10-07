@@ -21,7 +21,7 @@ func CreateEntity(PoolType string) {
 	entityRoll := PickRandomStaticEntity(PoolType)
 	obj := object.New().WithID(entityRoll.Name)
 	obj.SetRect(pixel.R(0., 0., entityRoll.Width, entityRoll.Height))
-	obj.Layer = 1
+	obj.Layer = entityRoll.Zlevel
 	GenerateValidPosition(obj)
 
 	spr := img.NewSprite(entityRoll.Sprite, data.BatchKeyTest)
@@ -29,6 +29,7 @@ func CreateEntity(PoolType string) {
 		Object:                obj,
 		Sprite:                spr,
 		StaticEnityProperties: entityRoll.Clone(),
+		EntityName:            entityRoll.Name,
 	}
 	character.Entity = myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).

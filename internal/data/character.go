@@ -50,6 +50,8 @@ type Character struct {
 	Kid                   *Kid
 	TextBubble            *TextBubble
 	StaticEnityProperties StaticEntity
+	StatusEffects         map[string]StatusEffect
+	EntityName            string
 }
 
 type Player struct {

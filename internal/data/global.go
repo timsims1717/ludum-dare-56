@@ -44,6 +44,7 @@ const (
 var (
 	TitleText          = "LD56"
 	LoadedEntities     = new(EntityDefinitions)
+	LoadedStatuses     = new(StatusDefinitions)
 	GlobalSeededRandom = rand.New(rand.NewSource(time.Now().UnixNano()))
 	Difficulty         = "medium"
 )

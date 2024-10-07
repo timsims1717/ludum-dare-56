@@ -37,3 +37,11 @@ func LoadEnities() {
 	}
 	data.LoadedEntities = entities
 }
+
+func LoadStatuses() {
+	statuses, err := data.LoadStatusEffectDefinitions("assets/StatusDefinitions.json")
+	if err != nil {
+		panic(err)
+	}
+	data.LoadedStatuses = statuses
+}

@@ -50,6 +50,7 @@ func CreateRandomKid() *data.Character {
 		MaxHP:      entity.HP,
 		Speed:      entity.Speed,
 		Kid:        &data.Kid{},
+		EntityName: entity.Name,
 	}
 	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
@@ -80,6 +81,7 @@ func CreateKid(entity *data.DynamicEntity, pos pixel.Vec) *data.Character {
 		MaxHP:      entity.HP,
 		Speed:      entity.Speed,
 		Kid:        &data.Kid{},
+		EntityName: entity.Name,
 	}
 	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
@@ -112,6 +114,7 @@ func CreateParent(entity string, kidCount int, pos pixel.Vec) *data.Character {
 		KidParent: &data.KidParent{
 			KidsDropped: kidCount,
 		},
+		EntityName: entity,
 	}
 	e := myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).

@@ -60,6 +60,7 @@ func (s *gameState) Update(win *pixelgl.Window) {
 	systems.RoomBorderSystem()
 	systems.EntityInteractions()
 	systems.UpdateInvincibility()
+	systems.UpdateStatusEffects()
 	systems.HealthBarSystem()
 
 	systems.AnimationSystem()
