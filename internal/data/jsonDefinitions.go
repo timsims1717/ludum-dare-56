@@ -22,13 +22,15 @@ type EntityDefinitions struct {
 }
 
 type StaticEntity struct {
-	Name         string `json:"key"`
-	Sprite       string `json:"sprite"`
-	Damage       int    `json:"damage"`
-	Damagetype   string `json:"damagetype"`
-	IsCollidable bool   `json:"IsCollidable"`
-	IsPickupable bool   `json:"IsPickupable"`
-	IsPushable   bool   `json:"IsPushable"`
+	Name         string  `json:"key"`
+	Sprite       string  `json:"sprite"`
+	Damage       int     `json:"damage"`
+	Damagetype   string  `json:"damagetype"`
+	IsCollidable bool    `json:"IsCollidable"`
+	IsPickupable bool    `json:"IsPickupable"`
+	IsPushable   bool    `json:"IsPushable"`
+	Width        float64 `json:"width"`
+	Height       float64 `json:"height"`
 }
 
 type DifficultyPool struct {

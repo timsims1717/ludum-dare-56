@@ -20,7 +20,7 @@ func PopulateLandscape() {
 func CreateEntity(PoolType string) {
 	entityRoll := PickRandomStaticEntity(PoolType)
 	obj := object.New().WithID(entityRoll.Name)
-	obj.SetRect(pixel.R(0., 0., 32., 32.))
+	obj.SetRect(pixel.R(0., 0., entityRoll.Width, entityRoll.Height))
 	obj.Layer = 1
 	obj.Pos.X = data.GetRandomX()
 	obj.Pos.Y = data.GetRandomY()
