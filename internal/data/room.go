@@ -1,25 +1,32 @@
 package data
 
-import "github.com/gopxl/pixel"
+import (
+	"github.com/bytearena/ecs"
+	"github.com/gopxl/pixel"
+)
 
 const (
 	WoodWidth      = 16.
-	WoodLeftIndex  = -16
-	WoodRightIndex = 8
-	FloorHeight    = 25
+	WoodLeftIndex  = -18
+	WoodRightIndex = 19
+	WoodHeight     = 24
 	RugWidth       = 48.
-	RugLeftIndex   = -2
-	RugRightIndex  = 3
-	RugBottomIndex = -2
-	RugTopIndex    = 1
+	RugLeftIndex   = -3
+	RugRightIndex  = 4
+	RugBottomIndex = -3
+	RugTopIndex    = 2
 )
 
 var (
-	RoomBorder = pixel.R(-300., -220., 300., 176.)
-	ParentPos  = pixel.V(0., 256.)
-	DoorPos    = pixel.V(0., 184.)
-	InRoomPos  = pixel.V(0., 148.)
-	MatPos     = pixel.V(0., 148.)
-	MatRect    = pixel.R(-24., -16., 24., 16.)
-	RoomBottom = -220.
+	RoomBorder    = pixel.R(-300., -224., 300., 160.)
+	ParentPos     = pixel.V(0., 256.)
+	WaitAtDoorPos = pixel.V(0., 168.)
+	InRoomPos     = pixel.V(0., 132.)
+	DoorPos       = pixel.V(0., 188.)
+	DoorRect      = pixel.R(-8., -8., 8., 8.)
+	MatPos        = pixel.V(0., 132.)
+	MatRect       = pixel.R(-24., -16., 24., 16.)
+	RoomBottom    = -220.
+
+	DoorEntity *ecs.Entity
 )

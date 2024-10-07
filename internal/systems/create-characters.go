@@ -126,7 +126,7 @@ func CreateParentAndKids(entityName string) {
 		count = data.GlobalSeededRandom.Intn(r) + entity.Min
 	}
 	parent := CreateParent(entity.Parent, count, data.ParentPos)
-	parent.Target = data.DoorPos
+	parent.Target = data.WaitAtDoorPos
 	parent.Movement = data.Straight
 	parent.NoStop = true
 	for i := 0; i < count; i++ {

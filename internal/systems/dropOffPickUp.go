@@ -84,7 +84,7 @@ func ParentPickUpSystem() {
 	if pickUpReady {
 		nextParent := data.Parents[data.PickUpList[data.ParentIndex]]
 		nextParent.KidParent.ParentState = data.TimeToPickUp
-		nextParent.Target = data.DoorPos
+		nextParent.Target = data.WaitAtDoorPos
 		nextParent.Movement = data.Straight
 		nextParent.NoStop = true
 		data.ParentIndex++

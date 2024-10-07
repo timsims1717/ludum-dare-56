@@ -11,9 +11,11 @@ const ( // states
 )
 
 const ( // sprites and batches
-	BatchKeyTest   = "test_batch"
-	SpriteKeyGhost = "ghost_test"
-	SpriteKeyMat   = "mat"
+	BatchKeyTest        = "test_batch"
+	SpriteKeyGhost      = "ghost_test"
+	SpriteKeyMat        = "mat"
+	SpriteKeyDoorClosed = "door_closed"
+	SpriteKeyDoorOpen   = "door_open"
 )
 
 var (
