@@ -198,14 +198,36 @@ func NPCCollisions() {
 				if j > i {
 					obj2, okO2 := result2.Components[myecs.Object].(*object.Object)
 					if okO2 && !result2.Entity.HasComponent(myecs.Parent) {
-						d := obj.HalfWidth + obj2.HalfWidth
-						v := obj.Pos.Sub(obj2.Pos)
-						m := util.Magnitude(v)
-						if m < d {
-							p := (d - m) * 0.5
-							n := util.Normalize(v).Scaled(p)
-							obj.Pos = obj.Pos.Add(n)
-							obj2.Pos = obj2.Pos.Add(pixel.V(-n.X, -n.Y))
+						if result.Entity.HasComponent(myecs.Pushable) && result.Entity.HasComponent(myecs.Pushable) {
+							d := obj.HalfWidth + obj2.HalfWidth
+							v := obj.Pos.Sub(obj2.Pos)
+							m := util.Magnitude(v)
+							if m < d {
+								p := (d - m) * 0.5
+								n := util.Normalize(v).Scaled(p)
+								obj.Pos = obj.Pos.Add(n)
+								obj2.Pos = obj2.Pos.Add(pixel.V(-n.X, -n.Y))
+							}
+						} else {
+							if !result.Entity.HasComponent(myecs.Pushable) {
+								d := obj.HalfWidth + obj2.HalfWidth
+								v := obj.Pos.Sub(obj2.Pos)
+								m := util.Magnitude(v)
+								if m < d {
+									p := (d - m)
+									n := util.Normalize(v).Scaled(p)
+									obj2.Pos = obj2.Pos.Add(pixel.V(-n.X, -n.Y))
+								}
+							} else {
+								d := obj.HalfWidth + obj2.HalfWidth
+								v := obj.Pos.Sub(obj2.Pos)
+								m := util.Magnitude(v)
+								if m < d {
+									p := (d - m)
+									n := util.Normalize(v).Scaled(p)
+									obj.Pos = obj.Pos.Add(n)
+								}
+							}
 						}
 					}
 				}

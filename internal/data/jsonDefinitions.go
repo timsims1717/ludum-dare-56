@@ -27,6 +27,8 @@ type StaticEntity struct {
 	Damage       int    `json:"damage"`
 	Damagetype   string `json:"damagetype"`
 	IsCollidable bool   `json:"IsCollidable"`
+	IsPickupable bool   `json:"IsPickupable"`
+	IsPushable   bool   `json:"IsPushable"`
 }
 
 type DifficultyPool struct {
