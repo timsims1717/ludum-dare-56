@@ -7,11 +7,12 @@ import (
 )
 
 type TextBubble struct {
-	Text      *typeface.Text
-	LeftObj   *object.Object
-	Left      *ecs.Entity
-	MiddleObj *object.Object
-	Middle    *ecs.Entity
-	RightObj  *object.Object
-	Right     *ecs.Entity
+	Text       *typeface.Text
+	TextEntity *ecs.Entity
+	LeftObj    *object.Object
+	Left       *ecs.Entity
+	MiddleObj  *object.Object
+	Middle     *ecs.Entity
+	RightObj   *object.Object
+	Right      *ecs.Entity
 }

@@ -80,8 +80,12 @@ func KidParentBehaviorSystem() {
 		par, okP := result.Components[myecs.KidParent].(*data.KidParent)
 		if okO && okC && okP {
 			if ch.Movement == data.Stationary {
+				ch.Timer.Update()
 				switch par.ParentState {
 				case data.TimeToDropOff:
+					if ch.TextBubble == nil {
+						CreateTextBubble(ch, "Here you go", 32., 16.)
+					}
 					dropComplete := true
 					for _, kid := range par.Kids {
 						if !kid.Kid.DroppedOff {
@@ -89,7 +93,7 @@ func KidParentBehaviorSystem() {
 							break
 						}
 					}
-					if dropComplete {
+					if dropComplete && ch.Timer.Done() {
 						ch.Target = data.ParentPos
 						ch.Movement = data.Straight
 						ch.NoStop = true

@@ -6,6 +6,7 @@ import (
 	"github.com/timsims1717/ludum-dare-56/internal/myecs"
 	"github.com/timsims1717/pixel-go-utils/img"
 	"github.com/timsims1717/pixel-go-utils/object"
+	"github.com/timsims1717/pixel-go-utils/timing"
 )
 
 func CreateCharacter() {
@@ -154,6 +155,7 @@ func CreateParentAndKids(entityName string) {
 		kid.NoStop = true
 		kid.Kid.KidParent = parent
 		parent.KidParent.Kids = append(parent.KidParent.Kids, kid)
+		parent.Timer = timing.New(6.)
 	}
 }
 

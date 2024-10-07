@@ -79,6 +79,7 @@ func (s *gameState) Draw(win *pixelgl.Window) {
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 0, false)
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 1, data.Layers)
 	systems.DrawLayerSystem(data.MainCanvas.Canvas, 3, data.Layers)
+	systems.DrawLayerSystem(data.MainCanvas.Canvas, 4, false)
 	img.Clear()
 	data.MainCanvas.Draw(win)
 
