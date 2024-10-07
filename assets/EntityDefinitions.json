@@ -6,28 +6,36 @@
       "sprite": "cactus_sprite",
       "damage": 1,
       "damagetype": "piercing",
-      "IsCollidable": true
+      "IsCollidable": true,
+      "IsPickupable": false,
+      "IsPushable": false
     },
     "Bear Trap": {
       "name": "Bear Trap",
       "sprite": "bear_trap_sprite",
       "damage": 3,
       "damagetype": "bludgeoning",
-      "IsCollidable": true
+      "IsCollidable": true,
+      "IsPickupable": true,
+      "IsPushable": false
     },
     "Aggressive Vine": {
       "name": "Aggressive Vine",
       "sprite": "aggressive_vine_sprite",
       "damage": 1,
       "damagetype": "lightning",
-      "IsCollidable": true
+      "IsCollidable": true,
+      "IsPickupable": false,
+      "IsPushable": true
     },
     "Stacking Toy": {
       "name": "Stacking Toy",
       "sprite": "stacking_toy_sprite",
       "damage": 0,
       "damagetype": "none",
-      "IsCollidable": true
+      "IsCollidable": true,
+      "IsPickupable": true,
+      "IsPushable": true
     }
   },
   "difficultypool": {

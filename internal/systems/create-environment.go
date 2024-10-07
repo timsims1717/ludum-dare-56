@@ -30,11 +30,19 @@ func CreateEntity(PoolType string) {
 		Sprite: spr,
 		Damage: entityRoll.Damage,
 	}
-	myecs.Manager.NewEntity().
+	character.Entity = myecs.Manager.NewEntity().
 		AddComponent(myecs.Object, obj).
 		AddComponent(myecs.Drawable, spr).
 		AddComponent(myecs.Character, character).
-		AddComponent(myecs.StaticEnity, character)
+		AddComponent(myecs.StaticEnity, character).
+		AddComponent(myecs.Collide, struct{}{}).
+		AddComponent(myecs.Immoveable, struct{}{})
+	if entityRoll.IsPushable {
+		character.Entity.AddComponent(myecs.Pushable, struct{}{})
+	}
+	if entityRoll.IsPickupable {
+		character.Entity.AddComponent(myecs.PickUp, struct{}{})
+	}
 }
 
 func PickRandomStaticEntity(PoolType string) *data.StaticEntity {

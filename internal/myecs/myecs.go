@@ -39,6 +39,8 @@ var (
 	KidParent   = Manager.NewComponent()
 	Invincible  = Manager.NewComponent()
 	Collide     = Manager.NewComponent()
+	Immoveable  = Manager.NewComponent()
+	Pushable    = Manager.NewComponent()
 
 	IsTemp    = ecs.BuildTag(Temp)
 	HasUpdate = ecs.BuildTag(Update)
